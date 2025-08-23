@@ -169,7 +169,7 @@ Valeur: zenabamogne.fr
 - ✅ **HTTPS natif** avec certificat SSL gratuit
 - ✅ **Performance mondiale** via CloudFront CDN
 - ✅ **Scalabilité** : Architecture serverless ready
-- ✅ **SEO optimisé** avec nom de domaine personnalisé
+- ✅ **Possibilité de SEO optimisé** avec nom de domaine personnalisé
 
 ### Compétences acquises
 - **Infrastructure AWS** : S3, CloudFront, ACM, Route 53
@@ -202,7 +202,6 @@ Valeur: zenabamogne.fr
 Cette approche progressive m'a permis de :
 - **Comprendre les bases** AWS sans me disperser
 - **Appliquer immédiatement** les concepts appris
-- **Préparer le terrain** pour ft_transcendence avec des services AWS
 - **Construire un portfolio** technique démontrant mes compétences cloud
 
 Le projet reste **évolutif** et servira de base pour des architectures plus complexes par la suite.
