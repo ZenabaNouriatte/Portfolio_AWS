@@ -1,4 +1,4 @@
-# Portfolio AWS - Déploiement Serverless avec S3 + CloudFront + SSL
+# 🌐 Portfolio AWS - Déploiement Serverless avec S3 + CloudFront + Lambda + DynamoDB
 
 ## Contexte du projet
 
@@ -192,7 +192,7 @@ Valeur: zenabamogne.fr
 ## 🔗 Ressources utiles
 
 - [AWS Static Website Hosting](https://docs.aws.amazon.com/AmazonS3/latest/userguide/WebsiteHosting.html)
-- [CloudFront Distribution Configuration](https://docs.aws.amazon.com/cloudfront/latest/developerguide/distribution-web-values-returned.html)
+- [CloudFront Distribution Configuration](https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/distribution-working-with.html)
 - [AWS Certificate Manager](https://docs.aws.amazon.com/acm/latest/userguide/acm-overview.html)
 
 ---
