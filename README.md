@@ -1,211 +1,124 @@
-# 🌐 Portfolio AWS - Déploiement Serverless avec S3 + CloudFront + Lambda + DynamoDB
+# Portfolio AWS – Infrastructure as Code avec Terraform
 
-## Contexte du projet
+##  Introduction
 
-### Pourquoi ce projet ?
+D'abord réalisé manuellement via la console (clic), j'ai ensuite refactorisé l'intégralité en Infrastructure as Code (Terraform) pour bénéficier de l'automatisation, de la reproductibilité et du versioning.
 
-J'ai découvert le **AWS Resume Challenge** — un excellent projet pour apprendre AWS de manière pratique. Cependant, étant actuellement concentrée sur la fin du tronc commun à l'école 42, j'ai adapté l'approche :
+L'infrastructure combine S3 privé, CloudFront (OAC), ACM, Lambda, API Gateway et DynamoDB, avec un compteur de visites dynamique intégré au frontend.
 
-- **Objectif immédiat** : Migrer mon portfolio HTML existant (GitHub Pages → AWS)
-- **Objectif à long terme** : Acquérir des compétences AWS pratiques pour **ft_transcendence** (projet final 42)
-- **Approche** : Démarche progressive et scalable, en utilisant le Free Tier AWS
+ **Objectif** : montrer ma maîtrise concrète d'AWS et de l'IaC, en suivant les bonnes pratiques de sécurité et de scalabilité.
 
-## Architecture
+ **Le but** est de démontrer ma connaissance des services AWS et de l'approche IaC.
+
+## ⚙️ Stack technique
+
+- **Terraform** (backend S3 + DynamoDB pour state/lock)
+- **AWS S3** privé (site statique)
+- **AWS CloudFront + ACM** (us-east-1) (CDN + TLS)
+- **AWS Lambda + API Gateway + DynamoDB** (compteur de visites serverless)
+- **AWS Budget** (alertes coûts)
+- **OVH DNS** (nom de domaine personnalisé)
+
+## 📂 Arborescence du projet
 
 ```
-Internet
-    ↓
-OVH DNS (zenabamogne.fr)
-    ↓
-AWS CloudFront (CDN + HTTPS)
-    ↓
-AWS S3 (Static Website Hosting)
-    ↓
-AWS Lambda + DynamoDB (Visitor Counter)
+.
+├── Architecture_Decision_Record.md
+├── deploy-static-site.json
+├── infra
+│   ├── backend.tf
+│   ├── budget.tf
+│   ├── environments/
+│   │   └── dev.tfvars
+│   ├── lambda/
+│   │   ├── build.zip
+│   │   └── visit/
+│   │       ├── handler.py
+│   │       └── tests/
+│   │           └── test_handler.py
+│   ├── main.tf
+│   ├── modules/
+│   │   ├── bootstrap-backend/
+│   │   ├── static-site/
+│   │   └── visit-api/
+│   ├── outputs.tf
+│   ├── providers.tf
+│   ├── public/
+│   │   ├── CV_2025_MOGNE_ZENABA.pdf
+│   │   ├── index.html
+│   │   └── style.css
+│   ├── terraform-backend.json
+│   ├── variables.tf
+│   └── versions.tf
+└── README.md
 ```
 
-## Technologies utilisées
+##  Workflow Terraform
 
-- **Frontend** : HTML/CSS/JavaScript
-- **Hébergement** : AWS S3 (Static Website Hosting)
-- **CDN & SSL** : AWS CloudFront + ACM (Certificate Manager)
-- **DNS** : OVH (Registrar + DNS Zone)
-- **Backend** : AWS Lambda (Python) + DynamoDB
-- **Testing local** : Docker + Nginx
+### Étapes principales
 
-## Étapes de mise en œuvre
-
-### Étape 1 : Validation locale avec Docker
 ```bash
-# Test de l'architecture locale
-docker run -d -p 80:80 -v $(pwd):/usr/share/nginx/html nginx
+terraform init           # Initialiser
+terraform validate       # Vérifier la syntaxe
+terraform fmt -recursive # Mise en forme
+terraform plan           # Prévisualiser les changements
+terraform apply          # Appliquer les changements
 ```
 
-**Pourquoi cette étape ?**
-- Validation du rendu avant déploiement
-- Test de la configuration Nginx
-- Démarche DevOps : tester localement d'abord
+### Naming convention
 
-### Étape 2 : Configuration S3
-1. **Création du bucket** avec le nom de domaine final
-2. **Configuration Static Website Hosting**
-3. **Politique de bucket** pour l'accès public aux fichiers
+```
+<prefix>-<project>-<env>-<type>
+```
+Exemple : `zenaba-portfolio-dev-tfstate`
 
-### Étape 3 : Implémentation du compteur de visites
+##  Gestion du state
 
-#### Backend (AWS Lambda + DynamoDB)
-- **Table DynamoDB** : `VisitorCounter` avec une clé `id`
-- **Fonction Lambda** : En python : Incrémente le compteur à chaque visite
+- **S3** : stockage centralisé avec versioning + encryption AES256
+- **DynamoDB** : table de lock pour éviter les apply concurrents
+- **Avantages** : collaboration, rollback, sécurité
 
+## 🌐 Déploiement du site statique
 
-#### Frontend (JavaScript)
-```javascript
-// Appel AJAX vers la Lambda Function URL
-fetch('https://your-lambda-url.amazonaws.com/')
-    .then(response => response.json())
-    .then(data => {
-        document.getElementById('visitor-count').textContent = data.visits;
-    })
-    .catch(error => console.log('Error:', error));
+- **Bucket S3 privé** (aucun accès public)
+- **CloudFront + OAC** (Origin Access Control) → seul CloudFront accède au bucket
+- **Certificat ACM** en us-east-1 pour HTTPS
+- **Redirection DNS OVH** (CNAME → CloudFront)
+
+### Commandes utiles :
+
+```bash
+aws s3 sync ./public s3://$SITE_BUCKET --delete
+aws cloudfront create-invalidation --distribution-id $CF_ID --paths "/*"
 ```
 
-### Étape 4 : Nom de domaine personnalisé
+##  Compteur de visites
 
-**Pourquoi changer de GitHub Pages vers un domaine personnalisé ?**
+- **Lambda** (Python) → incrémente la valeur
+- **DynamoDB** → stocke le compteur
+- **API Gateway** → expose /visit
+- **Frontend** → fetch de l'endpoint → affichage en temps réel
 
-| Critère | GitHub Pages | AWS + Domaine personnalisé |
-|---------|--------------|---------------------------|
-| URL | `username.github.io` | `zenabamogne.fr` |
-| HTTPS | ✅ Automatique | ✅ Via ACM |
-| SEO | ❌ Moins optimisé | ✅ Meilleur référencement |
-| Scalabilité | ❌ Limitée | ✅ Services AWS extensibles |
-| Performance mondiale | ❌ Une région | ✅ CDN CloudFront |
+## ❓ FAQ Technique 
 
-**Choix du registrar** : OVH
-- Prix compétitif
-- Interface française
-- Bonne réputation
+### Pourquoi avoir choisi une architecture avec S3 privé + CloudFront plutôt qu'un bucket S3 public ?
+→ Sécurité + performances (OAC, HTTPS, cache CDN, compression, faible latence).
 
-### Étape 5 : HTTPS avec CloudFront + ACM
+### Comment gérez-vous l'état Terraform et pourquoi cette méthode ?
+→ Backend S3 + DynamoDB (centralisation, versioning, verrouillage concurrent, rollback).
 
-#### Configuration CloudFront
-1. **Création de la distribution** avec S3 comme origine
-2. **Configuration SSL/TLS** avec certificat ACM
-3. **Optimisation** : Compression, cache policies
+### Pourquoi avoir implémenté un compteur de visites avec Lambda/DynamoDB plutôt qu'une solution tierce ?
+→ Démonstration de compétences serverless + coûts faibles + architecture scalable.
 
-#### Certificat SSL gratuit (ACM)
-1. **Demande de certificat** pour `zenabamogne.fr` et `www.zenabamogne.fr`
-2. **Validation DNS** : Ajout des enregistrements CNAME dans OVH
-3. **Validation automatique** en quelques minutes
+### Quelles mesures de sécurité ont été mises en place ?
+→ Bucket privé, OAC CloudFront, ACM TLS, IAM restrictive, chiffrement repos/transit, budget alertes.
 
-### Étape 6 : Configuration DNS (OVH)
-```
-Type: A
-Nom: @
-Valeur: [CloudFront Distribution Domain]
+### Comment améliorer pour un environnement de production ?
+→ CI/CD GitHub Actions, workspaces Terraform (multi-env), CloudWatch Alarms, AWS WAF, tests Terratest.
 
-Type: CNAME
-Nom: www
-Valeur: zenabamogne.fr
-```
+##  Améliorations possibles
 
-## Défis rencontrés et solutions
-
-### Problème 1 : Erreur CORS en local
-**Symptôme** : La fonction Lambda n'était pas appelable depuis `localhost`
-
-**Solution** : Configuration CORS sur la Lambda Function URL
-```python
-'headers': {
-    'Access-Control-Allow-Origin': '*',
-    'Access-Control-Allow-Methods': 'GET',
-    'Content-Type': 'application/json'
-}
-```
-
-### Problème 2 : Accès ACM bloqué
-**Symptôme** : Service ACM inaccessible malgré un compte vérifié
-
-**Solution** : 
-- Ouverture d'un ticket support AWS
-- Résolution : Restrictions injustifiées levées par le support
-- **Apprentissage** : Importance du support AWS pour les nouveaux comptes
-
-### Problème 3 : Propagation DNS
-**Symptôme** : Site inaccessible après configuration
-
-**Solution** :
-- Vérification de la configuration CloudFront
-- Attente de la propagation DNS (24-48h max)
-- Test avec différents DNS resolver
-
-## Considérations de sécurité
-
-### Sécurité actuelle
-- **HTTPS partout** via CloudFront + ACM
-- **Fonction Lambda** : Lecture seule, pas de données sensibles
-- **CORS configuré** : Accepte uniquement les requêtes GET
-
-### Améliorations possibles
-- **API Gateway** avec throttling et authentification
-- **WAF** (Web Application Firewall) sur CloudFront
-- **Monitoring** avec CloudWatch pour détecter les anomalies
-
-## Contrôle des coûts
-
-### Free Tier utilisé
-- **S3** : 5 GB de stockage + 20 000 requêtes GET
-- **CloudFront** : 50 GB de transfert + 2 millions de requêtes
-- **Lambda** : 1 million d'exécutions + 400 000 GB-secondes
-- **DynamoDB** : 25 GB de stockage + 25 RCU/WCU
-
-### Alertes configurées
-- **Billing Alert** : Notification si dépassement de 5$ par mois
-- **S3 Bucket** : Monitoring des requêtes
-
-## Résultats
-
-### Performance
-- ✅ **HTTPS natif** avec certificat SSL gratuit
-- ✅ **Performance mondiale** via CloudFront CDN
-- ✅ **Scalabilité** : Architecture serverless ready
-- ✅ **Possibilité de SEO optimisé** avec nom de domaine personnalisé
-
-### Compétences acquises
-- **Infrastructure AWS** : S3, CloudFront, ACM, Route 53
-- **Serverless** : Lambda, DynamoDB
-- **DNS Management** : Configuration et propagation
-- **DevOps** : Testing local, déploiement cloud
-
-## Prochaines étapes
-
-### Phase 2 : Infrastructure as Code
-- **Migration vers Terraform** : Automatisation du déploiement
-- **CI/CD Pipeline** : GitHub Actions pour les mises à jour
-- **Tests automatisés** : Validation du compteur de visites
-
-### Phase 3 : Monitoring avancé
-- **CloudWatch Dashboard** : Métriques en temps réel
-- **X-Ray Tracing** : Analyse des performances Lambda
-- **Logs analysis** : Détection des patterns d'usage
-
-## 🔗 Ressources utiles
-
-- [AWS Static Website Hosting](https://docs.aws.amazon.com/AmazonS3/latest/userguide/WebsiteHosting.html)
-- [CloudFront Distribution Configuration](https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/distribution-working-with.html)
-- [AWS Certificate Manager](https://docs.aws.amazon.com/acm/latest/userguide/acm-overview.html)
-
----
-
-## Notes personnelles
-
-Cette approche progressive m'a permis de :
-- **Comprendre les bases** AWS sans me disperser
-- **Appliquer immédiatement** les concepts appris
-- **Construire un portfolio** technique démontrant mes compétences cloud
-
-Le projet reste **évolutif** et servira de base pour des architectures plus complexes par la suite.
-
----
-
-# **Objectif atteint** : Portfolio professionnel hébergé sur AWS avec architecture scalable et sécurisée !
+- Automatisation CI/CD (GitHub Actions → Terraform plan/apply)
+- Multi-environnements (dev/staging/prod)
+- Monitoring et alertes (CloudWatch + SNS)
+- Sécurité avancée (WAF, Secrets Manager)

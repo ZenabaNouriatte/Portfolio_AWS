@@ -1,0 +1,768 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+    <title>MOGNE Zenaba - DevOps & Cloud Engineer</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css?v=3">
+
+</head>
+<body>
+    <!-- Bouton Burger (mobile seulement) -->
+    <button class="mobile-menu-btn" id="menuBtn">
+        <i class="fas fa-bars"></i>
+    </button>
+
+    <!-- Menu Mobile (mobile seulement) -->
+    <nav class="mobile-nav" id="mobileNav">
+        <ul class="nav-links">
+            <li><a href="#presentation" class="active"><i class="fas fa-user"></i> Présentation</a></li>
+            <li><a href="#parcours"><i class="fas fa-graduation-cap"></i> Parcours</a></li>
+            <li><a href="#competences"><i class="fas fa-laptop-code"></i> Compétences</a></li>
+            <li><a href="#portfolio"><i class="fas fa-briefcase"></i> Portfolio</a></li>
+            <li><a href="#contact"><i class="fas fa-envelope"></i> Contact</a></li>
+        </ul>
+    </nav>
+
+    <!-- Contenu -->
+    <div class="portfolio-container">
+        <!-- Header (grand sur desktop, compact sur mobile) -->
+        <header class="identity-header">
+            <h1>MOGNE Zenaba</h1>
+            <div class="title">Étudiante à l'école 42 | Cloud & DevOps | 📍 Paris</div>
+            
+            <div class="tagline">
+                &lt;/ À la recherche d'opportunités professionnelles dans les domaines du cloud, des systèmes, des réseaux et de la cybersécurité. &gt;
+            </div>
+            
+            <div class="availability">
+                <i class="fas fa-calendar-alt"></i> Disponible dès novembre 2025 (stage/CDD/CDI)
+            </div>
+            
+            <div class="identity-actions">
+                <div class="contact-icons">
+                    <a href="mailto:zenaba.mogne@live.fr" class="contact-icon" title="Envoyer un email">
+                        <i class="fas fa-envelope"></i>
+                    </a>
+                    <a href="https://www.linkedin.com/in/zenaba-mogne/" target="_blank" class="contact-icon" title="Profil LinkedIn">
+                        <i class="fab fa-linkedin-in"></i>
+                    </a>
+                    <a href="https://github.com/ZenabaNouriatte" target="_blank" class="contact-icon" title="Profil GitHub">
+                        <i class="fab fa-github"></i>
+                    </a>
+                </div>
+                
+                <a href="CV_2025_MOGNE_ZENABA.pdf" class="cv-download">
+                    <i class="fas fa-download"></i> Télécharger mon CV
+                </a>
+            </div>
+        </header>
+
+        <!-- Conteneur principal -->
+        <div class="main-container">
+            <!-- Sidebar (desktop seulement) -->
+            <aside class="sidebar">
+                <ul class="nav-links">
+                    <li><a href="#presentation" class="active"><i class="fas fa-user"></i> Présentation</a></li>
+                    <li><a href="#parcours"><i class="fas fa-graduation-cap"></i> Parcours</a></li>
+                    <li><a href="#competences"><i class="fas fa-laptop-code"></i> Compétences</a></li>
+                    <li><a href="#portfolio"><i class="fas fa-briefcase"></i> Portfolio</a></li>
+                    <li><a href="#contact"><i class="fas fa-envelope"></i> Contact</a></li>
+                </ul>
+            </aside>
+            
+            <main class="main-content">
+            <!-- Section Présentation -->
+            <section id="presentation" class="section">
+            <div class="section-header">
+                <h2 class="section-title">Présentation</h2>
+                <div class="section-description">De l'accompagnement social à l'ingénierie cloud</div>
+            </div>
+            
+            <div class="section-content">
+                <!-- Qui je suis -->
+                <div class="presentation-block">
+                    <h3 class="section-subtitle">Qui je suis</h3>
+                    <div class="card presentation-card">
+                        <div class="identity-badge">
+                            <span class="name">Zenaba</span>
+                            <span class="details">34 ans • Étudiante École 42 • Future Cloud Engineer</span>
+                        </div>
+                        <div class="presentation-text">
+                            <p>Issue du secteur social, j'ai pivoté vers la tech pour son dynamisme, son rythme d'innovation et ses opportunités d'évolution continue.</p>
+                            <p>Je me suis orientée vers l'<strong>infrastructure cloud</strong> : un domaine clé où l'on construit, automatise et sécurise les fondations numériques des entreprises.</p>
+                            <p>Ces technologies représentent le socle des <strong> architectures modernes</strong> et un levier majeur de transformation.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Objectif -->
+                <div class="presentation-block">
+                    <h3 class="section-subtitle">Mon objectif</h3>
+                    <div class="card presentation-card goal-card">
+                        <p>Construire une carrière dans le <strong>cloud et l'infrastructure</strong>, avec une expertise croissante sur&nbsp;<i class="fab fa-aws aws-highlight"></i>.</p>
+                    </div>
+                </div>
+
+                <!-- Domaines d'expertise -->
+                <div class="presentation-block">
+                    <h3 class="section-subtitle">Domaines d'expertise ciblés</h3>
+                    <div class="card presentation-card expertise-card">
+                        <ul class="expertise-list">
+                            <li><i class="fas fa-cube"></i> Infrastructure as Code : Terraform, CloudFormation, AWS CDK</li>
+                            <li><i class="fas fa-cloud"></i> Multi-cloud : focus sur AWS, intérêt pour Azure & GCP</li>
+                            <li><i class="fas fa-boxes"></i> Containerisation & Orchestration : Docker, Kubernetes</li>
+                            <li><i class="fas fa-sync-alt"></i> CI/CD & DevOps : Pipelines automatisés</li>
+                            <li><i class="fas fa-shield-alt"></i> DevSecOps : Sécurité intégrée</li>
+                            <li><i class="fas fa-chart-line"></i> Observabilité & Monitoring</li>
+                            <li><i class="fas fa-terminal"></i> Scripting & Automatisation : Python, Bash</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Plus-value -->
+                <div class="presentation-block">
+                    <h3 class="section-subtitle">Mon "plus"</h3>
+                    <div class="card presentation-card highlight-card">
+                        <p>Mon parcours démontre ma capacité à :</p>
+                        <ul class="softskills-list">
+                            <li><i class="fas fa-check"></i> Écouter et comprendre les besoins</li>
+                            <li><i class="fas fa-check"></i> M'adapter à différents contextes</li>
+                            <li><i class="fas fa-check"></i> Vulgariser des sujets techniques</li>
+                            <li><i class="fas fa-check"></i> Analyser et résoudre des problèmes complexes</li>
+                        </ul>
+                        <p class="highlight-text"><strong>Des soft skills solides, au service d'un métier technique exigeant.</strong></p>
+                    </div>
+                </div>
+            </section>
+
+
+                      <section id="parcours" class="section">
+                        <div class="section-header">
+                            <h2 class="section-title">Mon parcours</h2>
+                            <div class="section-description">De ma reconversion vers le tech à mes ambitions futures</div>
+                        </div>
+                        
+                        <div class="section-content">
+                            <!-- Timeline horizontale -->
+                            <div class="timeline-container">
+                                <div class="timeline-progress"></div>
+                                
+                                <div class="timeline-milestones">
+                                    <!-- Étape 1 -->
+                                    <div class="milestone">
+                                        <div class="milestone-marker current"></div>
+                                        <div class="milestone-content">
+                                            <h4>2013-2023</h4>
+                                            <h3>Travail social</h3>
+                                            <p>Expérience en gestion et pilotage de projets.</p>
+
+                                        </div>
+                                    </div>
+                                    
+                                    <!-- Étape 2 -->
+                                    <div class="mileline-connector">
+                                        <div class="connector-line"></div>
+                                        <div class="connector-arrow">→</div>
+                                    </div>
+                                    
+                                    <div class="milestone">
+                                        <div class="milestone-marker"></div>
+                                        <div class="milestone-content">
+                                            <h4>2023-2026</h4>
+                                            <h3>Transition vers la tech</h3>
+                                            <ul>
+                                                <p>Bootcamp Data Analyst</p>
+                                                <p>Ecole 42</p>
+                                                <p>Certification AWS</p>
+                                                <p>Stage Professionnel</p>
+                                                <br>
+                                                <p><strong>→ Objectifs :</strong> bases cloud, DevOps, AWS, experience pro.</p>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <br>
+                                    <!-- Étape 3 -->
+                                    <div class="mileline-connector">
+                                        <div class="connector-line"></div>
+                                        <div class="connector-arrow">→</div>
+                                    </div>
+                                    
+                                    <div class="milestone">
+                                        <div class="milestone-marker"></div>
+                                        <div class="milestone-content">
+                                            <h4>2026-2027</h4>
+                                            <h3>Professionnalisation</h3>
+                                            <ul>
+                                              <p>Cloud Engineer</p>
+                                              <p>Cloud Architect</p>
+                                              <p>DevOps</p>
+                                              <br>
+                                              <br>
+                                              <p><strong>→ Objectifs :</strong> expertise AWS.</p>
+
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <br>
+                    
+                            <!-- Objectifs sous forme de cartes interactives -->
+                            <!--<h3 class="section-subtitle with-icon"> <i class="fas fa-route"></i> Mes objectifs clés </h3>
+                            <div class="roadmap-cards">
+                                <div class="roadmap-card short-term">
+                                    <div class="roadmap-header">
+                                        <h4>Court Terme <span>(2025)</span></h4>
+                                    </div>
+                                    <ul class="roadmap-items">
+                                        <li><i class="fas fa-check-circle"></i> Tronc commun 42</li>
+                                        <li><i class="fas fa-check-circle"></i> Bases AWS/Terraform</li>
+                                        <li><i class="fas fa-check-circle"></i> Certification AWS Cloud / AI</li>
+                                        <li><i class="fas fa-check-circle"></i> Stage Cloud</li>
+                                    </ul>
+                                </div>
+                                
+                                <div class="roadmap-card short-term">
+                                    <div class="roadmap-header">
+                                        <h4>Moyen Terme <span>(2026)</span></h4>
+                                    </div>
+                                    <ul class="roadmap-items">
+                                        <li><i class="fas fa-cogs"></i> Expertise AWS</li>
+                                        <li><i class="fas fa-shield-alt"></i> Automatisation & Sécurité</li>
+                                        <li><i class="fas fa-project-diagram"></i> Architectures complexes</li>
+                                    </ul>
+                                </div>
+                                
+                                <div class="roadmap-card short-term">
+                                    <div class="roadmap-header">
+                                        <h4>Long Terme <span>(2026-2027)</span></h4>
+                                    </div>
+                                    <ul class="roadmap-items">
+                                        <li><i class="fas fa-cloud"></i> Cloud Architect/Engineer</li>
+                                        <li><i class="fas fa-users"></i> Compétences techniques collaboratives</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <br>-->
+                            
+                  
+                                           
+          
+                  <div class="diplomas-container">
+                      <h3 class="section-subtitle with-icon">
+                          <i class="fas fa-graduation-cap"></i> Diplômes
+                      </h3>
+                      
+                      <div class="skills-grid diplomas-grid">
+                          <div class="skills-category">
+                              <div class="category-header">
+                                  <i class="fas fa-hands-helping"></i>
+                                  <h4>Parcours social</h4>
+                              </div>
+                              <ul class="skills-list">
+                                  <li>
+                                      <strong>Licence - Diplôme d'État de Conseiller en Économie Sociale Familiale</strong>
+                                      <span class="date">2013</span>
+                                  </li>
+                                  <li>
+                                      <strong>BTS Économie Sociale Familiale</strong>
+                                      <span class="date">2012</span>
+                                      <span class="details">Lycée Camille Pissarro (Pontoise)</span>
+                                  </li>
+                              </ul>
+                          </div>
+                          
+                          <div class="skills-category">
+                              <div class="category-header">
+                                  <i class="fas fa-laptop-code"></i>
+                                  <h4>Parcours tech</h4>
+                              </div>
+                              <ul class="skills-list">
+                                  <li>
+                                      <strong>Formation à l'École 42 Paris</strong>
+                                      <span class="date">Depuis nov. 2023</span>
+                                      <span class="details">Programmation, systèmes et réseaux</span>
+                                  </li>
+                                  <li>
+                                      <strong>Bootcamp Data Analyst</strong>
+                                      <span class="date">Avril-Juin 2023</span>
+                                      <span class="details">DataScientest x La Sorbonne</span>
+                                  </li>
+                              </ul>
+                          </div>
+                      </div>
+                  </div>
+                  <br>
+          
+                  <div class="experience-container">
+                      <h3 class="section-subtitle with-icon">
+                          <i class="fas fa-briefcase"></i> Expérience professionnelle
+                      </h3>
+                      
+                      <div class="experience-card">
+                          <div class="experience-header">
+                              <h4>Chargée de mission sociale</h4>
+                              <div class="company">Léonie Chatelain</div>
+                              <div class="period">2013 - 2023</div>
+                          </div>
+                          
+                          <div class="experience-content">
+                              <p>Mise en œuvre et coordination de <strong>plus de 30 dispositifs publics</strong> autour du logement, de la précarité et de la retraite.</p>
+                              <p>Intervention dans des <strong>contextes sensibles</strong> (copropriétés dégradées, impayés, ruptures).</p>
+                              
+                              <div class="missions">
+                                  <h5>Mes missions incluaient :</h5>
+                                  <ul class="mission-list">
+                                      <li>Coordination simultanée de 5 à 6 dispositifs à thématiques différentes</li>
+                                      <li>Accompagnement social des familles</li>
+                                      <li>Définition de stratégies d'accompagnement sur mesure</li>
+                                      <li>Production d'analyses socio-économiques</li>
+                                      <li>Construction et animation de réseaux de partenaires institutionnels et associatifs.</li>
+                                      <li>Rédaction de bilans, rapports et réponses aux financeurs.</li>
+                                  </ul>
+                              </div>
+                              
+                              <div class="skills-developed">
+                                  <h5>Compétences développées :</h5>
+                                  <div class="skill-tags">
+                                      <span class="skill-tag">Gestion de projet</span>
+                                      <span class="skill-tag">Analyse de données</span>
+                                      <span class="skill-tag">Coordination</span>
+                                      <span class="skill-tag">Autonomie</span>
+                                      <span class="skill-tag">Adaptabilité</span>
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </section> 
+                
+                <!-- Section Compétences -->
+                <section id="competences" class="section">
+                    <div class="section-header">
+                      <h2 class="section-title gradient-text">Compétences & projections</h2>
+                      <div class="section-description">Un socle technique en constante évolution</div>
+                    </div>
+                  
+                    <div class="section-content">
+                      <h3 class="section-subtitle">Mes compétences actuelles</h3>
+                      <div class="skills-grid">
+
+                        <div class="skills-category">
+                            <h4>🛠️ Outils Dev / DevOps</h4>
+                            <ul class="skills-list">
+                            <li>Docker </li>
+                            <li>AWS (EC2, S3, Lambda, DynamoDB)</li>
+                              <li>Git / GitHub</li>
+                              <li>VirtualBox, gestion de VMs</li>
+                            </ul>
+                          </div>
+
+                          <div class="skills-category">
+                            <h4>🐧 Systèmes & Shell</h4>
+                            <ul class="skills-list">
+                              <li>Linux (utilisateurs, permissions, processus)</li>
+                              <li>Bash scripting</li>
+                              <li>Administration système de base</li>
+                            </ul>
+                          </div>
+
+                        <div class="skills-category">
+                          <h4>💻 Programmation & Data</h4>
+                          <ul class="skills-list">
+                            <li>Python (NumPy, Pandas, Matplotlib, Scikit-learn)</li>
+                            <li>Analyse de données, visualisations, web scraping</li>
+                            <li>C / C++</li>
+                            <li>Résolution de problèmes algorithmiques</li>
+                          </ul>
+                        </div>
+
+
+
+
+
+                      </div>
+                  
+                      <h3 class="section-subtitle">Objectifs d'apprentissage</h3>
+                      <div class="skills-grid">
+                        <div class="skills-category">
+                          <h4>☁️ Cloud Platforms</h4>
+                          <ul class="skills-list">
+                            <li><strong>Priorité : AWS</strong></li>
+                            <li>EC2, S3, VPC, IAM, RDS</li>
+                            <li>Certifications : AWS Cloud Practitioner, puis Solutions Architect Associate</li>
+                            <li><em>En veille :</em> Azure, GCP</li>
+                          </ul>
+                        </div>
+                        <div class="skills-category">
+                          <h4>🏗️ Infrastructure as Code</h4>
+                          <ul class="skills-list">
+                            <li><strong>Priorité : Terraform</strong></li>
+                            <li>Syntaxe HCL, modules, gestion de l'état</li>
+                            <li><em>À connaître :</em> Ansible, CloudFormation</li>
+                          </ul>
+                        </div>
+                        <div class="skills-category">
+                          <h4>🐳 Conteneurisation & Orchestration</h4>
+                          <ul class="skills-list">
+                            <li><strong>Docker :</strong> Images optimisées, registres privés</li>
+                            <li><strong>Kubernetes :</strong> Pods, services, Helm, RBAC</li>
+                            <li><em>En veille :</em> Service Mesh (Istio / Linkerd)</li>
+                          </ul>
+                        </div>
+                        <div class="skills-category">
+                          <h4>🔄 CI/CD & Observabilité</h4>
+                          <ul class="skills-list">
+                            <li>GitLab CI / GitHub Actions</li>
+                            <li>Prometheus + Grafana</li>
+                            <li>ELK Stack</li>
+                            <li>Jaeger / Zipkin</li>
+                          </ul>
+                        </div>
+                        <div class="skills-category">
+                          <h4>🔐 Sécurité Cloud</h4>
+                          <ul class="skills-list">
+                            <li>Moindre privilège, gestion des secrets</li>
+                            <li>DevSecOps (Trivy, SonarQube, SAST/DAST)</li>
+                            <li>Conformité : RGPD, ISO 27001</li>
+                          </ul>
+                        </div>
+                        <div class="skills-category">
+                          <h4>💰 FinOps & Optimisation</h4>
+                          <ul class="skills-list">
+                            <li>Rightsizing, réservation, nettoyage auto</li>
+                            <li>AWS Cost Explorer</li>
+                            <li>Optimisation des coûts cloud</li>
+                          </ul>
+                        </div>
+                      </div>
+                  
+                      <div class="card" style="margin-top: 2rem;">
+                        <h4 class="section-subtitle alt">🌐 Langues</h4>
+                        <ul class="skills-list">
+                          <li><strong>Français :</strong> Langue maternelle</li>
+                          <li><strong>Anglais :</strong> Niveau B2 - Lecture fluide de documentation technique, veille technologique internationale</li>
+                        </ul>
+                      </div>
+                  
+                      <div class="card" style="margin-top: 2rem;">
+                        <h3 class="section-subtitle">Soft Skills</h3>
+                        <p>Mon parcours allie des compétences transversales à des qualités relationnelles solides développées dans des environnements collaboratifs.</p>
+                        <div class="skills-grid">
+                          <div class="skills-category">
+                            <h4> Efficacité personnelle</h4>
+                            <ul class="skills-list">
+                              <li>Autonomie</li>
+                              <li>Rigueur et sens du détail</li>
+                              <li>Capacité d’analyse</li>
+                              <li>Résolution de problèmes</li>
+                              <li>Apprentissage continu</li>
+                              <li>Orientation résultats</li>
+                            </ul>
+                          </div>
+                          <div class="skills-category">
+                            <h4> Relationnel & communication</h4>
+                            <ul class="skills-list">
+                              <li>Esprit d’équipe</li>
+                              <li>Capacité d’adaptation</li>
+                              <li>Pédagogie & vulgarisation</li>
+                              <li>Communication claire</li>
+                            </ul>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </section>
+
+                
+                <!-- Section Portfolio -->
+                <section id="portfolio" class="section">
+                    <div class="section-header">
+                        <h2 class="section-title">Portfolio</h2>
+                        <div class="section-description">Apprentissage par la pratique</div>
+                    </div>
+                    
+                    <div class="section-content">
+                        <h3 class="section-subtitle">✅ Projets réalisés</h3>
+
+                        <div class="project-card"> 
+                            <div class="project-title"><a href="https://github.com/ZenabaNouriatte/Portfolio_AWS" target="_blank">
+                                <i class="fab fa-aws"></i> Déploiement d’un blog statique sur AWS (S3 + Lambda)(projet perso) 🔗</a>
+                                <span class="project-status status-completed">Terminé</span>
+                            </div>
+                            <div class="project-steps">
+                            <p>Hébergement d’un blog statique avec nom de domaine personnalisé et suivi des visites :</p>
+                                <div>Stockage statique dans un bucket S3</div>
+                                <div>Nom de domaine configuré via Route53</div>
+                                <div>Certificat SSL via AWS Certificate Manager</div>
+                                <div>Compteur de visites géré par une fonction Lambda</div>
+                                <div>Stockage des données de visites dans DynamoDB</div>
+                                <div><strong>Next step :</strong> Migration vers Terraform ➡️ automatisation du déploiement</div>
+                            </div>
+                                🎯 <strong>Objectif :</strong> Decouvrir les services fondamentaux d’AWS dans un projet concret (S3, Lambda, Route53, DynamoDB)
+                        </div>
+                        <div class="project-card">
+                            <div class="project-title"><a href="https://github.com/ZenabaNouriatte/Inception" target="_blank">
+                                <i class="fas fa-server"></i> Docker : images personnalisées et services web sécurisés (Projet 42) 🔗</a>
+                                <span class="project-status status-completed">Terminé</span>
+                            </div>
+                            <div class="project-steps">
+                                <div> Déploiement d'une infrastructure Dockerisée complète avec stack LEMP (Linux, Nginx, MariaDB, WordPress).</div>
+                                    <div> Chaque image a été construite à partir d'un Dockerfile personnalisé (aucune image Docker Hub utilisée),
+                                orchestrée avec Docker Compose et automatisée via Makefile.</div>
+                                <div> Configuration réseau dédiée, volumes persistants, certificat SSL, et services complémentaires : Adminer, Redis.</div>
+                                <div> Ajout de services complémentaires (Adminer, Redis), configuration réseau dédiée, volumes persistants et certificat SSL pour sécuriser la plateforme.</div>
+                            </div>
+                            🎯 <strong>Objectif :</strong> Déployer une infrastructure web sécurisée en utilisant Docker et Docker Compose.
+                        </div>
+
+                        <div class="project-card">
+                            <div class="project-title">
+                                <a href="https://github.com/ZenabaNouriatte/Born2beRoot" target="_blank">
+                                <i class="fas fa-shield-alt"></i> Administration système et sécurité (Born2beroot – Projet 42) 🔗</a>
+                                <span class="project-status status-completed">Terminé</span>
+                            </div>
+                            <div class="project-steps">
+                                <div>Installation et configuration d’un serveur minimaliste sous Debian, sans interface graphique, dans une machine virtuelle.</div>
+                                <div>Mise en place de partitions chiffrées avec LVM, activation d’AppArmor, configuration d’un firewall (UFW) et d’un service SSH sur le port 4242.</div>
+                                <div>Implémentation d’une politique de mots de passe stricte et configuration renforcée de sudo avec journalisation et restrictions.</div>
+                                <div>Développement d’un script de monitoring en Bash exécuté automatiquement pour fournir des informations système clés (CPU, RAM, connexions, utilisateurs, etc.).</div>
+                            </div>
+                            <p>🎯 <strong>Objectif :</strong> Découvrir la virtualisation et s’initier à l’administration système en mettant en place un serveur Linux sécurisé et automatisé.</p>
+                        </div>
+                        
+
+                         <div class="project-card">
+                            <div class="project-title">
+                                <a href="https://github.com/ZenabaNouriatte/ft_irc_42" target="_blank">
+                                <i class="fab fa-twitter"></i> FT_IRC – Serveur IRC personnalisé (Projet 42) 🔗</a>
+                                
+                                <span class="project-status status-completed">Terminé</span>
+                            </div>
+                            <div class="project-steps">
+                                <p>Développement d'un serveur basé sur le protocole IRC RFC1459 en C++.</p>
+                                <div>Programmation réseau avec sockets TCP/IP</div>
+                                <div>Création de canaux, gestion des commandes des clients</div>
+                            </div>
+                                🎯 <strong>Objectif :</strong> Approfondir la compréhension des protocoles réseau et des systèmes bas niveau
+                            </div>
+
+                            <div class="project-card">
+                            <div class="project-title">
+                                <a href="https://github.com/ZenabaNouriatte/TwitterSentimentAnalysis" target="_blank">
+                                <i class="fab fa-twitter"></i> Opinion sur les JO 2024 (Projet perso) 🔗</a>
+                                
+                                <span class="project-status status-completed">Terminé</span>
+                            </div>
+                            <div class="project-steps">
+                                <div> Analyse de 53 000 tweets avec Pandas, Regex et TextBlob pour analyser l'opinion publique sur les Jeux Olympiques de Paris 2024.</div>
+                                <div> Nettoyage et analyse de donnees pour extraire le ton dominant (environ 60 % de messages positifs).</div>
+                                <div> Plusieurs visualisations interactives créées avec Power BI pour mettre en évidence les tendances par période, hashtags et sujets clés.</div>
+                            </div>
+                            🎯 <strong>Objectif :</strong> Exploiter le NLP (Regex, TextBlob) et l’analyse de données (Pandas, Power BI) pour extraire et visualiser les tendances d’opinion à partir de 53 000 tweets.
+                            </div>
+
+                            <div class="project-card">
+                                <div class="project-title">
+                                    <a href="https://github.com/ZenabaNouriatte/BonheurNationalBrut" target="_blank">
+                                    <i class="fas fa-chart-line"></i> Comment percevez vous le bonheur ? (Bootcamp Data)🔗</a>
+                                    
+                                    <span class="project-status status-completed">Terminé</span>
+                                </div>
+                                <div class="project-steps">
+                                    <div> Collecte de plus de 20 000 données via BeautifulSoup, Selenium et fichiers CSV.</div>
+                                    <div> Nettoyage avancé, réduction de 30 % des variables par feature engineering et visualisation via Matplotlib.</div>
+                                    <div> Entraînement de plusieurs modèles de machine learning (régression linéaire, classification) avec Scikit-learn.</div>
+                                    <div> Identification des facteurs influençant le bonheur d'une population à partir de données internationales.</div>
+                                    <div> Interface utilisateur créée avec Streamlit pour explorer les résultats de façon interactive.</div>
+                                </div>
+                                🎯 <strong>Objectif :</strong> Collecter, nettoyer et modéliser des données massives (scraping, feature engineering, Scikit-learn) afin d’identifier les variables influençant la perception du bonheur.
+                            </div>
+
+                        <h3 class="section-subtitle">🔄 Projets en cours</h3>
+                        <div class="card" style="background-color: #fffaf0;">
+                            <div class="project-title">
+                                <i class="fas fa-gamepad"></i> Ft_transcendance – Application web fullstack (Projet 42)
+                                <span class="project-status status-in-progress">En cours</span>
+                            </div>
+                            <div class="project-steps">
+                                <p>Déploiement d'une application de pong multijoueur dans un environnement sécurisé et industrialisé :</p>
+                                    <div>Backend , frontend  et base de données, le tout dockerisé</div>
+                                    <div>Reverse proxy NGINX, certificat SSL, pipeline CI/CD</div>
+                            </div>
+                                <strong>Rôle visé :</strong> prise en charge de l'infrastructure : containerisation, réseau, sécurité, monitoring, déploiement et automatisation
+                                  <p><strong>🎯 Objectif :</strong> Mettre en pratique les compétences DevOps dans un environnement collaboratif</p>
+                            </ul>
+                        </div>
+
+                        <h3 class="section-subtitle">➡️​ Projets à venir</h3>
+                        <div class="card" style="background-color: #f8f9fa;">
+                            <div class="project-title">
+                                <i class="fas fa-cubes"></i> Architecture microservices avec Kubernetes
+                                <span class="project-status status-planned">Planifié</span>
+                            </div>
+                            <div class="project-steps">
+                                <p>Déploiement d'une application en microservices sur un cluster Kubernetes :</p>
+                                    <div>Gestion des services, ingress controller et volumes persistants</div>
+                                    <div>Monitoring avec Prometheus et Grafana</div>
+                                    <div>Déploiement automatisé avec pipeline CI/CD intégré</div>
+                            </div>
+                                🎯 <strong>Objectif :</strong> Comprendre l'orchestration de conteneurs et les architectures scalables
+                            <br>
+                            <br>
+
+                            <div class="project-title">
+                                <i class="fas fa-shield-alt"></i> Pipeline DevSecOps complet
+                                <span class="project-status status-planned">Planifié</span>
+                            </div>
+                            <div class="project-steps">
+                                <p>Création d'un pipeline CI/CD sécurisé et automatisé :</p>
+                                    <div>Analyse statique du code, scan de vulnérabilités, tests automatisés</div>
+                                    <div>Déploiement avec GitHub Actions ou GitLab CI/CD</div>
+                            </div>
+                                🎯 <strong>Objectif :</strong> Automatiser le cycle de vie logiciel avec une approche centrée sur la sécurité
+                            </ul>
+                        </div>
+                    </div>
+                </section>
+                  <!-- Section Contact -->
+                <section id="contact" class="section">
+                  <div class="section-header">
+                      <h2 class="section-title">Contact</h2>
+                      <div class="section-description">Disponible, motivée, et toujours à l’écoute.</div>
+                  </div>
+                  
+                  <div class="section-content">
+                      <div class="card">
+                          <p style="margin-bottom: 1,2rem; font-size: 1,8rem;text-align: center;">
+                              Une question, une proposition, une idée ou une opportunité ? Contactez-moi !
+                          </p>
+                        </br>
+
+                          <div class="contact-item">
+                              <i class="fas fa-envelope"></i>
+                              <div>
+                                  <strong>Email :</strong> 
+                                  <a href="mailto:zenaba.mogne@live.fr">zenaba.mogne@live.fr</a>
+                              </div>
+                          </div>
+                          
+                          <div class="contact-item">
+                              <i class="fab fa-linkedin-in"></i>
+                              <div>
+                                  <strong>LinkedIn :</strong> 
+                                  <a href="https://www.linkedin.com/in/zenaba-mogne/" target="_blank">linkedin.com/in/zenaba-mogne/</a>
+                              </div>
+                          </div>
+                          
+                          <div class="contact-item">
+                              <i class="fab fa-github"></i>
+                              <div>
+                                  <strong>GitHub :</strong> 
+                                  <a href="https://github.com/ZenabaNouriatte" target="_blank">github.com/ZenabaNouriatte</a>
+                              </div>
+                          </div>
+
+                          <div class="quote" style="text-align: center;">
+                              <i class="fas fa-quote-left" style="opacity: 0.6; margin-right: 10px;"></i> 
+                              From social impact to cloud infrastructure – ready to apply human-centered problem-solving to technical challenges.
+                              <i class="fas fa-quote-right" style="opacity: 0.6; margin-right: 10px;"></i> 
+                          </div>
+                          
+                      </div>
+                  </div>
+              </section>
+                  
+            </main>
+        </div>
+        
+        <footer>
+            <p>© 2025 MOGNE Zenaba - Site personnel</p>
+        </footer>
+    </div>
+
+    <!-- Compteur de visites -->
+    <div class="visit-counter" id="visitCounter">
+        <i class="fas fa-eye"></i> <span id="visitCount">Chargement...</span>
+    </div>
+
+    <script>
+        // Gestion du menu burger (mobile)
+        const menuBtn = document.getElementById('menuBtn');
+        const mobileNav = document.getElementById('mobileNav');
+
+        if (menuBtn && mobileNav) {
+            menuBtn.addEventListener('click', function() {
+                mobileNav.classList.toggle('active');
+            });
+        }
+
+        // Navigation commune
+        function handleNavigation(e) {
+            if (e) e.preventDefault();
+            
+            const targetId = this.getAttribute('href');
+            
+            // Cache toutes les sections
+            document.querySelectorAll('.section').forEach(section => {
+                section.classList.remove('active');
+            });
+            
+            // Affiche la section cible
+            document.querySelector(targetId).classList.add('active');
+            
+            // Met à jour l'état actif
+            document.querySelectorAll('.nav-links a').forEach(link => {
+                link.classList.remove('active');
+            });
+            this.classList.add('active');
+            
+            // Ferme le menu mobile si ouvert
+            if (mobileNav) mobileNav.classList.remove('active');
+            
+            // Scroll vers le haut sur mobile seulement
+            if (window.innerWidth <= 900) {
+                window.scrollTo(0, 0);
+            }
+        }
+
+        // Écouteurs pour mobile
+        document.querySelectorAll('.mobile-nav a').forEach(link => {
+            link.addEventListener('click', handleNavigation);
+        });
+        
+        // Écouteurs pour desktop
+        document.querySelectorAll('.sidebar .nav-links a').forEach(link => {
+            link.addEventListener('click', handleNavigation);
+        });
+
+        // Compteur de visites
+        function updateVisitCounter() {
+            fetch("https://e3hxhx39yg.execute-api.eu-west-3.amazonaws.com/visit")
+                .then(response => response.json())
+                .then(data => {
+                    const count = data.count || 0;
+                    document.getElementById('visitCount').textContent = `${count} visites`;
+                })
+                .catch(error => {
+                    console.error("Erreur lors de la récupération du compteur :", error);
+                    document.getElementById('visitCount').textContent = `? visites`;
+                });
+            }
+
+
+        // Initialisation
+        document.addEventListener('DOMContentLoaded', function() {
+            // Affiche la première section par défaut
+            document.querySelector('#presentation').classList.add('active');
+            
+            // Initialise le compteur
+            updateVisitCounter();
+        });
+    </script>
+</body>
+</html>
