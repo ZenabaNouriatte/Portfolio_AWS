@@ -111,9 +111,7 @@ aws cloudfront create-invalidation --distribution-id $CF_ID --paths "/*"
 ## Résultat ?
 
 Un site hébergé sur AWS accessible à ces adresses :  
-- [zenabamogne.fr](https://zenabamogne.fr)  
 - [http://zenabamogne.fr](http://zenabamogne.fr)  
-- [https://zenabamogne.fr](https://zenabamogne.fr)  
 - [www.zenabamogne.fr](https://www.zenabamogne.fr)  
 - [https://www.zenabamogne.fr](https://www.zenabamogne.fr)
 
