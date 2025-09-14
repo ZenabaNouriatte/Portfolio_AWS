@@ -108,6 +108,17 @@ aws cloudfront create-invalidation --distribution-id $CF_ID --paths "/*"
 - **API Gateway** → expose /visit
 - **Frontend** → fetch de l'endpoint → affichage en temps réel
 
+## Résultat ?
+
+Un site hébergé sur AWS accessible à ces adresses :  
+- [zenabamogne.fr](https://zenabamogne.fr)  
+- [http://zenabamogne.fr](http://zenabamogne.fr)  
+- [https://zenabamogne.fr](https://zenabamogne.fr)  
+- [www.zenabamogne.fr](https://www.zenabamogne.fr)  
+- [https://www.zenabamogne.fr](https://www.zenabamogne.fr)
+
+![Aperçu du site](Schema/site.png)
+
 ## ❓ FAQ Technique 
 
 ### Pourquoi avoir choisi une architecture avec S3 privé + CloudFront plutôt qu'un bucket S3 public ?
