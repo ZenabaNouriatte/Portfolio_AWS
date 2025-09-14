@@ -52,6 +52,15 @@ L'infrastructure combine S3 privé, CloudFront (OAC), ACM, Lambda, API Gateway e
 │   └── versions.tf
 └── README.md
 ```
+## Architecture
+
+
+![Architecture AWS](Schema/architecture.png)
+
+## Flux utilisateur 
+
+![Flux utilisateur](Schema/flux.png)
+
 
 ##  Workflow Terraform
 
