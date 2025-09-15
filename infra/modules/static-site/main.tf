@@ -1,27 +1,32 @@
 ########################################
 # Certificat ACM (us-east-1) pour CloudFront
 ########################################
-resource "aws_acm_certificate" "site" {
-  provider                  = aws.use1        # IMPORTANT: us-east-1
-  domain_name               = var.domain_name # ex: "www.zenabamogne.fr"
-  validation_method         = "DNS"
-  subject_alternative_names = var.subject_alternative_names
+resource "aws_acm_certificate" "site_cert" {
+  provider          = aws.use1        # <= alias us-east-1
+  domain_name       = var.domain_root # ex: zenabamogne.fr
+  validation_method = "DNS"
 
-  options {
-    certificate_transparency_logging_preference = "ENABLED"
-  }
+  subject_alternative_names = [
+    "*.${var.domain_root}", # ex: *.zenabamogne.fr
+  ]
 
   lifecycle {
     create_before_destroy = true
   }
 }
 
+
 ########################################
 # S3 privé (site)
 ########################################
 resource "aws_s3_bucket" "site" {
-  # ex: portfolio-dev-www-zenabamogne-fr-site
-  bucket = "${var.project}-${var.environment}-${replace(var.domain_name, ".", "-")}-site"
+  # fige le nom historique pour éviter toute recréation
+  bucket = "${var.project}-${var.environment}-www-${replace(var.domain_root, ".", "-")}-site"
+
+  # (optionnel mais conseillé pour l’avenir)
+  lifecycle {
+    prevent_destroy = true
+  }
 
   tags = {
     Project     = var.project
@@ -74,8 +79,11 @@ resource "aws_cloudfront_distribution" "site" {
   price_class         = var.price_class
   default_root_object = var.default_root_object
 
-  # Alias personnalisé (ton domaine)
-  aliases = [var.domain_name] # ex: "www.zenabamogne.fr"
+  # Deux aliases : apex + www
+  aliases = [
+    var.domain_root,          # zenabamogne.fr
+    "www.${var.domain_root}", # www.zenabamogne.fr
+  ]
 
   origin {
     domain_name              = aws_s3_bucket.site.bucket_regional_domain_name
@@ -86,22 +94,12 @@ resource "aws_cloudfront_distribution" "site" {
   default_cache_behavior {
     target_origin_id       = "s3-origin"
     viewer_protocol_policy = "redirect-to-https"
-
-    allowed_methods = [
-      "GET",
-      "HEAD",
-    ]
-    cached_methods = [
-      "GET",
-      "HEAD",
-    ]
+    allowed_methods        = ["GET", "HEAD"]
+    cached_methods         = ["GET", "HEAD"]
 
     forwarded_values {
       query_string = false
-
-      cookies {
-        forward = "none"
-      }
+      cookies { forward = "none" }
     }
   }
 
@@ -111,21 +109,21 @@ resource "aws_cloudfront_distribution" "site" {
     }
   }
 
+
   viewer_certificate {
-    # Certificat ACM en us-east-1
-    acm_certificate_arn      = aws_acm_certificate.site.arn
+    acm_certificate_arn      = aws_acm_certificate.site_cert.arn # <= bon ARN
     ssl_support_method       = "sni-only"
     minimum_protocol_version = "TLSv1.2_2021"
   }
+
+  wait_for_deployment = true
 
   tags = {
     Project     = var.project
     Environment = var.environment
   }
-
-  # Attendre le déploiement de la distrib avant de terminer l'apply
-  wait_for_deployment = true
 }
+
 
 ########################################
 # Policy du bucket : n'autoriser QUE CloudFront (via OAC)
@@ -148,7 +146,7 @@ data "aws_iam_policy_document" "bucket_policy" {
       identifiers = ["cloudfront.amazonaws.com"]
     }
 
-    # N'autoriser que les requêtes provenant de TA distribution
+    # N'autoriser que les requêtes provenant de ma distrib
     condition {
       test     = "StringEquals"
       variable = "AWS:SourceArn"

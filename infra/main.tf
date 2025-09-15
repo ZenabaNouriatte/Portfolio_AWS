@@ -12,12 +12,11 @@ module "static_site" {
     aws.use1 = aws.use1
   }
 
-  project                   = var.project
-  environment               = var.environment
-  domain_name               = "www.zenabamogne.fr"
-  subject_alternative_names = []
-  price_class               = "PriceClass_100"
-  default_root_object       = "index.html"
+  project             = var.project
+  environment         = var.environment
+  domain_root         = var.domain_root
+  price_class         = var.price_class
+  default_root_object = var.default_root_object
 }
 
 module "visit_api" {

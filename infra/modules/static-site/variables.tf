@@ -6,10 +6,6 @@ variable "environment" {
   type = string
 }
 
-variable "domain_name" {
-  type    = string
-  default = "www.zenabamogne.fr"
-}
 
 variable "subject_alternative_names" {
   type    = list(string)
@@ -25,3 +21,9 @@ variable "default_root_object" {
   type    = string
   default = "index.html"
 }
+
+variable "domain_root" {
+  type        = string
+  description = "Apex domain (ex: zenabamogne.fr)"
+}
+
