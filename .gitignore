@@ -14,3 +14,5 @@ infra/lambda/build.zip
 # Garder le lock (utile/recommandé)
 !.terraform.lock.hcl
 !infra/.terraform.lock.hcl
+
+.DS_Store

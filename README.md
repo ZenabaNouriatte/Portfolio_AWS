@@ -117,6 +117,27 @@ Un site hébergé sur AWS accessible à ces adresses :
 
 ![Aperçu du site](Schema/site.png)
 
+## Problème rencontré & résolution (ACM/CloudFront)
+
+**Problématique.** L’ajout de l’alias `zenabamogne.fr` dans CloudFront échouait avec comme message d'erreur :
+> “The certificate that is attached to your distribution doesn't cover the alternate domain name (CNAME)…”
+
+**Cause racine.**
+- Le certificat ACM initial ne couvrait que `www.zenabamogne.fr`.
+- La distribution CloudFront n’avait que `www.zenabamogne.fr` en alias.
+- Rappel important : **CloudFront exige un certificat ACM en `us-east-1`** couvrant **tous** les noms ajoutés dans `aliases`.
+
+**Correctif mis en place.**
+1. Création d’un **nouveau certificat ACM** en `us-east-1` pour **`zenabamogne.fr` + `*.zenabamogne.fr`** (Terraform, provider alias `aws.use1`).
+2. Exposition des **CNAMEs de validation** via les outputs Terraform ➜ ajout des CNAMEs dans **OVH DNS** ➜ état **`ISSUED`**.
+3. Mise à jour de **CloudFront** :
+   - `aliases = ["zenabamogne.fr", "www.zenabamogne.fr"]`
+   - `viewer_certificate.acm_certificate_arn = <nouvel ARN ACM>`
+4. DNS :
+   - `www` ➜ **CNAME** vers la distrib CloudFront
+   - **apex** `zenabamogne.fr` ➜ **redirection 301 visible** OVH vers `https://www.zenabamogne.fr` (limitation CNAME sur l’apex).
+
+
 ## ❓ FAQ Technique 
 
 ### Pourquoi avoir choisi une architecture avec S3 privé + CloudFront plutôt qu'un bucket S3 public ?
