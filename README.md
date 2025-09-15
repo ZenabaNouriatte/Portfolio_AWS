@@ -114,7 +114,7 @@ Un site hébergé sur AWS accessible à ces adresses :
 - [http://zenabamogne.fr](http://zenabamogne.fr)  
 - [www.zenabamogne.fr](https://www.zenabamogne.fr)  
 - [https://www.zenabamogne.fr](https://www.zenabamogne.fr)
-- [zenabamogne.fr](zenabamogne.fr)
+- [zenabamogne.fr](http://zenabamogne.fr) 
 
 ## ❓ FAQ Technique 
 
