@@ -1,3 +1,6 @@
+![Terraform](https://img.shields.io/badge/Terraform-7B42BC?style=for-the-badge&logo=terraform&logoColor=white)
+![AWS](https://img.shields.io/badge/AWS-FF9900?style=for-the-badge&logo=amazonaws&logoColor=white)
+
 # Portfolio AWS – Infrastructure as Code avec Terraform
 
 ##  Introduction
@@ -52,14 +55,55 @@ L'infrastructure combine S3 privé, CloudFront (OAC), ACM, Lambda, API Gateway e
 │   └── versions.tf
 └── README.md
 ```
-## Architecture
+
+J'ai dans un premier temps commencé par une structure simple et monolithique pour comprendre les bases de Terraform.
+Les concepts augmentant, j'ai découpé l'architecture en modules distincts afin de bénéficier des avantages suivants :
+
+Avantages de l'approche modulaire :
+
+Réutilisabilité : Chaque module peut être réutilisé dans différents projets ou environnements
+Séparation des responsabilités : Chaque module a une fonction précise et autonome
+Maintenance simplifiée : Les modifications sont isolées et n'affectent pas l'ensemble du système
+Collaboration facilitée : Plusieurs personnes peuvent travailler sur différents modules simultanément sans conflits
+Testabilité : Chaque module peut être testé indépendamment avant intégration
+
+Les différents modules communiquent entre eux via les outputs et variables:
+
+```
+# Déclaration d'un output dans un module
+output "acm_arn" {
+  value = aws_acm_certificate.site_cert.arn
+}
+
+# Utilisation dans la configuration racine
+module "static_site" {
+  source = "./modules/static-site"
+  domain_root = var.domain_root
+}
+
+# Réutilisation de l'output dans d'autres modules ou outputs
+output "certificat_ssl" {
+  value = module.static_site.acm_arn
+}
+```
+
+Cette architecture modulaire permet une gestion évolutive de l'infrastructure et une meilleure organisation du code Terraform, 
+tout en facilitant la collaboration et la maintenance à long terme.
+
+## Architecture du projet
 
 
 ![Architecture AWS](Schema/architecture.png)
 
-## Flux utilisateur 
+CloudFront délivre le site depuis **S3 privé via OAC** (pas d'accès public direct au bucket).
+L'infrastructure utilise stratégiquement deux régions AWS pour optimiser les performances et respecter les contraintes techniques.
 
-![Flux utilisateur](Schema/flux.png)
+## 🔄 Flux des Requêtes
+
+![Flux des requêtes](Schema/flux_rqt.png)
+
+Parcours d'une requête : 
+Le contenu statique est servi via le CDN CloudFront depuis S3, tandis que les données dynamiques du compteur de visites transitent par une API serverless (Lambda + DynamoDB) avant de s'afficher sur la page. Cette architecture assure une performance globale grâce à une séparation claire entre la couche de présentation et le traitement des données.*
 
 
 ##  Workflow Terraform
@@ -115,6 +159,8 @@ Un site hébergé sur AWS accessible à ces adresses :
 - [www.zenabamogne.fr](https://www.zenabamogne.fr)  
 - [https://www.zenabamogne.fr](https://www.zenabamogne.fr)
 - [zenabamogne.fr](http://zenabamogne.fr) 
+
+![Site déployé](Schema/site.png)
 
 ## Problème rencontré & résolution (ACM/CloudFront)
 

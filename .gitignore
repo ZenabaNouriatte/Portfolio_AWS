@@ -1,18 +1,17 @@
-# Terraform dirs & local state
 infra/.terraform/
 infra/terraform.tfstate
 infra/terraform.tfstate.backup
 infra/crash.log
 
-# Vars locales (contiennent souvent des secrets)
 infra/*.tfvars
 infra/environments/*.tfvars
 
-# Artifacts build
 infra/lambda/build.zip
 
-# Garder le lock (utile/recommandé)
 !.terraform.lock.hcl
 !infra/.terraform.lock.hcl
 
 .DS_Store
+
+.terraform/
+terraform.tfstate*

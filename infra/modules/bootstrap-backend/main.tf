@@ -1,15 +1,17 @@
-# 1) S3: bucket pour le state
+# S3: bucket pour le state
 resource "aws_s3_bucket" "tf_state" {
-  # ⚠️ DOIT être unique globalement
   bucket = "${var.bucket_name_prefix}-${var.project}-${var.environment}-tfstate"
 
   tags = {
     Project     = var.project
     Environment = var.environment
   }
+  lifecycle {
+    prevent_destroy = true
+  }
 }
 
-# Versioning du bucket (recommandé pour l’historique du state)
+# Versioning du bucket ( pour l’historique du state)
 resource "aws_s3_bucket_versioning" "tf_state" {
   bucket = aws_s3_bucket.tf_state.id
   versioning_configuration {
@@ -17,7 +19,7 @@ resource "aws_s3_bucket_versioning" "tf_state" {
   }
 }
 
-# Chiffrement côté serveur (SSE-S3)
+# Chiffrement côté serveur 
 resource "aws_s3_bucket_server_side_encryption_configuration" "tf_state" {
   bucket = aws_s3_bucket.tf_state.id
   rule {
@@ -27,7 +29,7 @@ resource "aws_s3_bucket_server_side_encryption_configuration" "tf_state" {
   }
 }
 
-# Blocage d’accès public (obligatoire pour un state)
+# Blocage d’accès public 
 resource "aws_s3_bucket_public_access_block" "tf_state" {
   bucket                  = aws_s3_bucket.tf_state.id
   block_public_acls       = true
@@ -36,7 +38,7 @@ resource "aws_s3_bucket_public_access_block" "tf_state" {
   restrict_public_buckets = true
 }
 
-# 2) DynamoDB: table de verrouillage
+# DynamoDB: table de verrouillage
 resource "aws_dynamodb_table" "tf_lock" {
   name         = "${var.project}-${var.environment}-tf-lock"
   billing_mode = "PAY_PER_REQUEST"
@@ -50,5 +52,8 @@ resource "aws_dynamodb_table" "tf_lock" {
   tags = {
     Project     = var.project
     Environment = var.environment
+  }
+  lifecycle {
+    prevent_destroy = true
   }
 }
