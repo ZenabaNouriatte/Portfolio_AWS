@@ -488,23 +488,35 @@
                     
                     <div class="section-content">
                         <h3 class="section-subtitle">✅ Projets réalisés</h3>
-
+                      
                         <div class="project-card"> 
-                            <div class="project-title"><a href="https://github.com/ZenabaNouriatte/Portfolio_AWS" target="_blank">
-                                <i class="fab fa-aws"></i> Déploiement d’un blog statique sur AWS (S3 + Lambda)(projet perso) 🔗</a>
-                                <span class="project-status status-completed">Terminé</span>
-                            </div>
-                            <div class="project-steps">
-                            <p>Hébergement d’un blog statique avec nom de domaine personnalisé et suivi des visites :</p>
-                                <div>Stockage statique dans un bucket S3</div>
-                                <div>Nom de domaine configuré via Route53</div>
-                                <div>Certificat SSL via AWS Certificate Manager</div>
-                                <div>Compteur de visites géré par une fonction Lambda</div>
-                                <div>Stockage des données de visites dans DynamoDB</div>
-                                <div><strong>Next step :</strong> Migration vers Terraform ➡️ automatisation du déploiement</div>
-                            </div>
-                                🎯 <strong>Objectif :</strong> Decouvrir les services fondamentaux d’AWS dans un projet concret (S3, Lambda, Route53, DynamoDB)
+                          <div class="project-title">
+                            <a href="https://github.com/ZenabaNouriatte/Portfolio_AWS" target="_blank">
+                              <i class="fab fa-aws"></i> Infrastructure AWS Serverless (IaC) – Site web statique avec Terraform 🔗
+                            </a>
+                            <span class="project-status status-completed">Terminé</span>
+                          </div>
+                      
+                          <div class="project-steps">
+                            <p>Projet initialement déployé manuellement via la console AWS, puis migré vers <strong>Terraform</strong> pour automatiser, fiabiliser et versionner l’infrastructure.</p>
+
+                            <p>Déploiement de mon <strong>portfolio en production</strong> (site web statique) en Infrastructure as Code, utilisant les services AWS et Terraform :</p>
+                            
+                            <div>Stockage statique sur S3 + distribution via CloudFront</div>
+                            <div>Nom de domaine et zone DNS gérés par OVH Cloud</div>
+                            <div>Certificat SSL/TLS provisionné par ACM</div>
+                            <div>Compteur de visites : Lambda + API Gateway avec persistance DynamoDB</div>
+                            <div>Backend Terraform : state et verrouillage stockés dans S3 et DynamoDB</div>
+                            <div>Politiques IAM minimales et buckets privés</div>
+                            <div>Suivi coûts & alertes : CloudWatch Metrics/Logs + AWS Budgets</div>
+                            <div>Déploiement modulaire et reproductible (plans/apply Terraform)</div>
+                          </div>
+
+                          🎯 <strong>Objectif :</strong> Découvrir les services fondamentaux d’AWS et apprendre l’Infrastructure as Code via un projet concret. <br>
+                        <strong>Résultats :</strong> Déploiements fiables et sans interruption, contrôle des coûts, infra versionnée et traçable.
                         </div>
+                      </div>
+                      
                         <div class="project-card">
                             <div class="project-title"><a href="https://github.com/ZenabaNouriatte/Inception" target="_blank">
                                 <i class="fas fa-server"></i> Docker : images personnalisées et services web sécurisés (Projet 42) 🔗</a>
