@@ -492,41 +492,54 @@
                         <div class="project-card"> 
                           <div class="project-title">
                             <a href="https://github.com/ZenabaNouriatte/Portfolio_AWS" target="_blank">
-                              <i class="fab fa-aws"></i> Infrastructure AWS Serverless (IaC) – Site web statique avec Terraform 🔗
+                              <i class="fab fa-aws"></i> Infrastructure AWS Serverless (IaC) – Portfolio en production avec Terraform 🔗
                             </a>
                             <span class="project-status status-completed">Terminé</span>
                           </div>
                       
                           <div class="project-steps">
-                            <p>Projet initialement déployé manuellement via la console AWS, puis migré vers <strong>Terraform</strong> pour automatiser, fiabiliser et versionner l’infrastructure.</p>
-
-                            <p>Déploiement de mon <strong>portfolio en production</strong> (site web statique) en Infrastructure as Code, utilisant les services AWS et Terraform :</p>
-                            
-                            <div>Stockage statique sur S3 + distribution via CloudFront</div>
+                            <p>Migration d'un déploiement manuel vers une <strong>Infrastructure as Code</strong> complète pour automatiser, fiabiliser et versionner le déploiement de mon portfolio en production.</p><br>
+                            <p><strong>Architecture Serverless :</strong></p>
+                            <div>Site web statique : S3 + distribution mondiale CloudFront</div>
                             <div>Nom de domaine et zone DNS gérés par OVH Cloud</div>
                             <div>Certificat SSL/TLS provisionné par ACM</div>
-                            <div>Compteur de visites : Lambda + API Gateway avec persistance DynamoDB</div>
-                            <div>Backend Terraform : state et verrouillage stockés dans S3 et DynamoDB</div>
-                            <div>Politiques IAM minimales et buckets privés</div>
-                            <div>Suivi coûts & alertes : CloudWatch Metrics/Logs + AWS Budgets</div>
+                            <div>API Dynamique : Lambda + API Gateway avec persistance DynamoDB pour le compteur de visites</div>
+                            <div>Sécurité : politiques IAM minimales et buckets privés</div><br>
+
+                            <p><strong>Infrastructure as Code :</strong></p>
                             <div>Déploiement modulaire et reproductible (plans/apply Terraform)</div>
+                            <div>Backend Terraform : state et verrouillage stockés dans S3 et DynamoDB</div><br>
+                            
+                            <p><strong>FinOps & Optimisation :</strong></p>
+                            <div>Contrôle des coûts : AWS Budgets avec alertes automatiques</div>
+                            <div>Optimisation continue des ressources et performances</div><br>
+                            
+                            <p><strong>Prochaine étape :</strong> Intégration CI/CD (GitHub Actions) et monitoring CloudWatch</p>
                           </div>
 
                           🎯 <strong>Objectif :</strong> Découvrir les services fondamentaux d’AWS et apprendre l’Infrastructure as Code via un projet concret. <br>
-                        <strong>Résultats :</strong> Déploiements fiables et sans interruption, contrôle des coûts, infra versionnée et traçable.
                         </div>
                       </div>
                       
                         <div class="project-card">
                             <div class="project-title"><a href="https://github.com/ZenabaNouriatte/Inception" target="_blank">
-                                <i class="fas fa-server"></i> Docker : images personnalisées et services web sécurisés (Projet 42) 🔗</a>
+                                <i class="fas fa-server"></i> Docker : Infrastructure containerisée et microservices (Projet 42) 🔗</a>
                                 <span class="project-status status-completed">Terminé</span>
                             </div>
                             <div class="project-steps">
-                                <div> Déploiement d'une infrastructure Dockerisée complète avec stack LEMP (Linux, Nginx, MariaDB, WordPress).</div>
-                                    <div> Chaque image a été construite à partir d'un Dockerfile personnalisé (aucune image Docker Hub utilisée),
-                                orchestrée avec Docker Compose et automatisée via Makefile.</div>
-                                <div> Configuration réseau dédiée, volumes persistants, certificat SSL, et services complémentaires : Adminer, Redis.</div>
+                                <p> Conception et déploiement d'une <strong>architecture microservices containerisée</strong> respectant les bonnes pratiques. </p><br>
+                                <p><strong>Architecture & Responsabilités</strong></p>
+                                <div>Un container par service : Serveur web Nginx, Service application Wordpress, Base de données MariaDB, service de cache Redis</div><br>
+
+                                <p><strong>Infrastructure as Code :</strong></p>
+                                <div> Définition de l'infrastructure par code (Dockerfile, Compose, Makefile) :</div>
+                                <div> Image construite à partir d'un Dockerfile personnalisé (aucune image Docker Hub utilisée),
+                                orchestrée avec Docker Compose et automatisée via Makefile.</div><br>
+
+                                <p><strong>Sécurité & conformité :</strong></p>
+                                <div> Implémentation TLS/SSL avec certificats auto-signés</div>
+                                <div> Principe du moindre privilège (utilisateurs non-root, ports minimaux)</div>
+                                <div> Isolation réseau entre services et exposition contrôlée</div><br>
                                 <div> Ajout de services complémentaires (Adminer, Redis), configuration réseau dédiée, volumes persistants et certificat SSL pour sécuriser la plateforme.</div>
                             </div>
                             🎯 <strong>Objectif :</strong> Déployer une infrastructure web sécurisée en utilisant Docker et Docker Compose.
@@ -595,21 +608,41 @@
                                 🎯 <strong>Objectif :</strong> Collecter, nettoyer et modéliser des données massives (scraping, feature engineering, Scikit-learn) afin d’identifier les variables influençant la perception du bonheur.
                             </div>
 
-                        <h3 class="section-subtitle">🔄 Projets en cours</h3>
-                        <div class="card" style="background-color: #fffaf0;">
-                            <div class="project-title">
+                            <h3 class="section-subtitle">🔄 Projets en cours</h3>
+
+                            <div class="project-card" style="background-color: #fffaf0;">
+                              <div class="project-title">
                                 <i class="fas fa-gamepad"></i> Ft_transcendance – Application web fullstack (Projet 42)
                                 <span class="project-status status-in-progress">En cours</span>
+                              </div>
+                            
+                              <div class="project-steps">
+                                <p>Déploiement d’une application de Pong multijoueur dans un environnement <strong>sécurisé, monitoré et industrialisé</strong>.</p><br>
+                            
+                                <p><strong>Architecture :</strong></p>
+                                <div>Multi-conteneurs (frontend, backend, proxy NGINX, base de données, monitoring, ELK) orchestrés avec Docker Compose</div>
+                                <div>Backend en microservices (auth, chat, jeu, tournois, statistiques, WebSocket temps réel)</div><br>
+                            
+                                <p><strong>Sécurité :</strong></p>
+                                <div>Reverse proxy NGINX avec certificats SSL</div>
+                                <div>Toutes les communications en <strong>HTTPS/WSS</strong> (API et WebSocket chiffrés)</div>
+                                <div>Isolation réseau via Docker Compose</div><br>
+                            
+                                <p><strong>CI :</strong></p>
+                                <div>Tests et builds automatisés sur GitHub</div><br>
+                            
+                                <p><strong>Observabilité :</strong></p>
+                                <div>Métriques avec Prometheus (latence p95, CPU/mémoire backend, connexions WS actives)</div>
+                                <div>Visualisation avec Grafana (dashboards JSON provisionnés)</div>
+                                <div>Logs centralisés via ELK (Elasticsearch, Logstash, Kibana)</div>
+                                <div>Alertes via Alertmanager</div><br>
+                              </div>
+                            
+                              🎯 <strong>Objectif :</strong> Développer une plateforme fullstack robuste et appliquer une démarche DevOps complète (CI, observabilité, automatisation).<br><br>
+                              <strong>Rôle dans l’équipe :</strong> prise en charge de l’infrastructure : containerisation, réseau, sécurité, monitoring, déploiement et automatisation.
                             </div>
-                            <div class="project-steps">
-                                <p>Déploiement d'une application de pong multijoueur dans un environnement sécurisé et industrialisé :</p>
-                                    <div>Backend , frontend  et base de données, le tout dockerisé</div>
-                                    <div>Reverse proxy NGINX, certificat SSL, pipeline CI/CD</div>
-                            </div>
-                                <strong>Rôle visé :</strong> prise en charge de l'infrastructure : containerisation, réseau, sécurité, monitoring, déploiement et automatisation
-                                  <p><strong>🎯 Objectif :</strong> Mettre en pratique les compétences DevOps dans un environnement collaboratif</p>
-                            </ul>
-                        </div>
+                            
+                            
 
                         <h3 class="section-subtitle">➡️​ Projets à venir</h3>
                         <div class="card" style="background-color: #f8f9fa;">

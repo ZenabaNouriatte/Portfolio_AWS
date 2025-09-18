@@ -749,20 +749,11 @@ body {
 }
 
 
-/*.project-status {
-    display: inline-block;
-    padding: 0.3rem 0.8rem;
-    border-radius: 30px;
-    font-size: 0.85rem;
-    font-weight: bold;
-    margin-left: 0.8rem;
-}*/
-
 .project-status {
     display: inline-block;
-    padding: 0.3rem 0.8rem;
-    border-radius: 30px;
-    font-size: 0.85rem;
+    padding: 0.2rem 0.6rem;
+    border-radius: 20px;
+    font-size: 0.75rem;
     font-weight: bold;
     margin-left: auto; /* Déplace le statut à droite */
 }
