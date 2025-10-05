@@ -61,11 +61,11 @@ Les concepts augmentant, j'ai découpé l'architecture en modules distincts afin
 
 Avantages de l'approche modulaire :
 
-Réutilisabilité : Chaque module peut être réutilisé dans différents projets ou environnements
-Séparation des responsabilités : Chaque module a une fonction précise et autonome
+- Réutilisabilité : Chaque module peut être réutilisé dans différents projets ou environnements
+- Séparation des responsabilités : Chaque module a une fonction précise et autonome
 Maintenance simplifiée : Les modifications sont isolées et n'affectent pas l'ensemble du système
-Collaboration facilitée : Plusieurs personnes peuvent travailler sur différents modules simultanément sans conflits
-Testabilité : Chaque module peut être testé indépendamment avant intégration
+-Collaboration facilitée : Plusieurs personnes peuvent travailler sur différents modules simultanément sans conflits
+-Testabilité : Chaque module peut être testé indépendamment avant intégration
 
 Les différents modules communiquent entre eux via les outputs et variables:
 
