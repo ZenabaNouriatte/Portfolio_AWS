@@ -5,13 +5,22 @@
 
 ##  Introduction
 
-D'abord réalisé manuellement via la console (clic), j'ai ensuite refactorisé l'intégralité en Infrastructure as Code (Terraform) pour bénéficier de l'automatisation, de la reproductibilité et du versioning.
+Ce projet m’a permis de découvrir concrètement les principaux services AWS à travers un cas d’usage réel et utile : héberger mon propre portfolio.
+J’ai choisi de commencer par la console AWS, afin de comprendre chaque service individuellement (S3, CloudFront, ACM, Lambda, API Gateway, DynamoDB).
+Cette première approche manuelle m’a aidée à visualiser le fonctionnement global de l’infrastructure et à consolider mes bases sur le cloud public.
 
-L'infrastructure combine S3 privé, CloudFront (OAC), ACM, Lambda, API Gateway et DynamoDB, avec un compteur de visites dynamique intégré au frontend.
+Une fois les principes maîtrisés, j’ai refactorisé l’intégralité du projet en Infrastructure as Code (Terraform) pour bénéficier de l’automatisation, de la reproductibilité, du versioning, et de la rigueur d’un workflow professionnel.
 
- **Objectif** : montrer ma maîtrise concrète d'AWS et de l'IaC, en suivant les bonnes pratiques de sécurité et de scalabilité.
+Le projet utilise un nom de domaine personnalisé acheté sur OVHCloud, relié à AWS pour le HTTPS.
+Cette étape m’a donné l’occasion de comprendre la gestion des zones DNS, les redirections et la validation de certificats SSL avec ACM et CloudFront — une partie qui m’a beaucoup challengée, surtout pour faire fonctionner https://zenabamogne.fr et https://www.zenabamogne.fr en parallèle.
 
- **Le but** est de démontrer ma connaissance des services AWS et de l'approche IaC.
+Au-delà d’AWS et Terraform, ce projet m’a aussi permis de :
+
+- créer moi-même le frontend en HTML/CSS,
+- expérimenter l’intégration d’un compteur de visites dynamique via une architecture serverless (Lambda + API Gateway + DynamoDB),
+- d'approfondir ma compréhension de la sécurité cloud (OAC, chiffrement, IAM, budget).
+
+En résumé, ce projet m’a permis de transformer mes connaissances théoriques en une réalisation concrète, fonctionnelle et personnelle, tout en posant les bases d’une infrastructure moderne et évolutive.
 
 ## ⚙️ Stack technique
 
@@ -183,22 +192,35 @@ Un site hébergé sur AWS accessible à ces adresses :
    - **apex** `zenabamogne.fr` ➜ **redirection 301 visible** OVH vers `https://www.zenabamogne.fr` (limitation CNAME sur l’apex).
 
 
-## ❓ FAQ Technique 
+## 💬 FAQ Technique & Retour d’expérience
 
-### Pourquoi avoir choisi une architecture avec S3 privé + CloudFront plutôt qu'un bucket S3 public ?
-→ Sécurité + performances (OAC, HTTPS, cache CDN, compression, faible latence).
+### Pourquoi avoir d’abord tout fait via la console AWS ?
+Pour comprendre concrètement le rôle de chaque service.
+Configurer S3, CloudFront, ACM ou API Gateway à la main m’a permis de visualiser les liens entre eux avant d’automatiser.
+Terraform est ensuite venu structurer et fiabiliser tout ce que j’avais appris.
 
-### Comment gérez-vous l'état Terraform et pourquoi cette méthode ?
-→ Backend S3 + DynamoDB (centralisation, versioning, verrouillage concurrent, rollback).
+### Pourquoi utiliser Terraform plutôt que CloudFormation ?
+Terraform est multi-cloud : il permet de décrire la même infrastructure sur AWS, Azure, GCP ou d’autres services tiers avec un langage unique (HCL).
+Dans une démarche d’apprentissage, j’ai préféré utiliser un langage transversal pour renforcer ma compréhension des concepts.
 
-### Pourquoi avoir implémenté un compteur de visites avec Lambda/DynamoDB plutôt qu'une solution tierce ?
-→ Démonstration de compétences serverless + coûts faibles + architecture scalable.
+### Comment gérer la sécurité et la performance du site ?
+J'ai fait lr choix de servir le site via un bucket S3 privé via CloudFront (OAC) — aucune exposition publique directe.
+Le certificat TLS ACM est hébergé en us-east-1, comme requis par CloudFront.
+Les fichiers statiques sont mis en cache et compressés, et toutes les requêtes sont redirigées vers HTTPS.
+Résultat → Sécurité + performances : HTTPS, cache CDN, compression, latence réduite et chiffrement des données au repos et en transit.
 
-### Quelles mesures de sécurité ont été mises en place ?
-→ Bucket privé, OAC CloudFront, ACM TLS, IAM restrictive, chiffrement repos/transit, budget alertes.
+### Quels ont été les principaux défis techniques ?
+- La validation ACM avec OVH (CNAMEs et propagation DNS)
+- La redirection HTTPS entre zenabamogne.fr et www.zenabamogne.fr
+- L’intégration du compteur de visites serverless (Lambda + API Gateway + DynamoDB)
 
-### Comment améliorer pour un environnement de production ?
-→ CI/CD GitHub Actions, workspaces Terraform (multi-env), CloudWatch Alarms, AWS WAF, tests Terratest.
+Ces points m’ont obligée à approfondir les notions de DNS, SSL et permissions IAM.
+
+### Comment est géré l'état Terraform et pourquoi cette méthode ?
+J’utilise un backend S3 + DynamoDB :
+S3 stocke le state de manière versionnée et sécurisée,
+DynamoDB gère le verrouillage concurrent (lock) pour éviter les conflits.
+Cela garantit la cohérence, la traçabilité et la collaboration sans risque de corruption du state.
 
 ##  Améliorations possibles
 
