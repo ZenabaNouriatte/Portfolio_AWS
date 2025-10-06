@@ -5,33 +5,33 @@
 
 ##  Introduction
 
-Ce projet m’a permis de découvrir concrètement les principaux services AWS à travers un cas d’usage réel et utile : héberger mon propre portfolio.
-J’ai choisi de commencer par la console AWS, afin de comprendre chaque service individuellement (S3, CloudFront, ACM, Lambda, API Gateway, DynamoDB).
-Cette première approche manuelle m’a aidée à visualiser le fonctionnement global de l’infrastructure et à consolider mes bases sur le cloud public.
+This project was a hands-on way to explore AWS services by building something real and personal : my own portfolio website.
+I first built it manually in the AWS Console to understand how each service works (S3, CloudFront, ACM, Lambda, API Gateway, and DynamoDB) before automating everything with Terraform.
 
-Une fois les principes maîtrisés, j’ai refactorisé l’intégralité du projet en Infrastructure as Code (Terraform) pour bénéficier de l’automatisation, de la reproductibilité, du versioning, et de la rigueur d’un workflow professionnel.
+The goal was to turn a manually created infrastructure into a fully reproducible, automated, and versioned deployment, trying to follow IaC best practices.
+I also registered a custom domain on OVHCloud and configured DNS and SSL with AWS.
+It was a great challenge to make both zenabamogne.fr and www.zenabamogne.fr work properly with HTTPS, while learning the relationship between ACM, CloudFront, and DNS zones.
 
-Le projet utilise un nom de domaine personnalisé acheté sur OVHCloud, relié à AWS pour le HTTPS.
-Cette étape m’a donné l’occasion de comprendre la gestion des zones DNS, les redirections et la validation de certificats SSL avec ACM et CloudFront — une partie qui m’a beaucoup challengée, surtout pour faire fonctionner https://zenabamogne.fr et https://www.zenabamogne.fr en parallèle.
+Beyond AWS, this project helped me:
 
-Au-delà d’AWS et Terraform, ce projet m’a aussi permis de :
+Build the entire frontend (HTML/CSS) from scratch,
+Integrate a serverless visit counter (Lambda + API Gateway + DynamoDB),
+Understand security layers like OAC, encryption, IAM, and budget monitoring.
 
-- créer moi-même le frontend en HTML/CSS,
-- expérimenter l’intégration d’un compteur de visites dynamique via une architecture serverless (Lambda + API Gateway + DynamoDB),
-- d'approfondir ma compréhension de la sécurité cloud (OAC, chiffrement, IAM, budget).
+In short, it turned theory into practice : a complete, functional, and evolving cloud project I fully understand end-to-end.
 
-En résumé, ce projet m’a permis de transformer mes connaissances théoriques en une réalisation concrète, fonctionnelle et personnelle, tout en posant les bases d’une infrastructure moderne et évolutive.
+Live: [www.zenabamogne.fr](www.zenabamogne.fr) 
 
-## ⚙️ Stack technique
+## ⚙️ Tech stack
 
-- **Terraform** (backend S3 + DynamoDB pour state/lock)
-- **AWS S3** privé (site statique)
-- **AWS CloudFront + ACM** (us-east-1) (CDN + TLS)
-- **AWS Lambda + API Gateway + DynamoDB** (compteur de visites serverless)
-- **AWS Budget** (alertes coûts)
-- **OVH DNS** (nom de domaine personnalisé)
+- **Terraform** (S3 backend + DynamoDB lock)
+- **AWS S3** (private static hosting)
+- **AWS CloudFront + ACM** (us-east-1) CDN & HTTPS
+- **AWS Lambda + API Gateway + DynamoDB** (serverless visit counter)
+- **AWS Budget** (cost alerts)
+- **OVHCloud DNS** (domain and DNS management)
 
-## 📂 Arborescence du projet
+## 📂 Project Structure
 
 ```
 .
@@ -65,66 +65,60 @@ En résumé, ce projet m’a permis de transformer mes connaissances théoriques
 └── README.md
 ```
 
-J'ai dans un premier temps commencé par une structure simple et monolithique pour comprendre les bases de Terraform.
-Les concepts augmentant, j'ai découpé l'architecture en modules distincts afin de bénéficier des avantages suivants :
+The infrastructure started as a simple monolith, then evolved into multiple Terraform modules for reusability and clarity:
+- bootstrap-backend: S3 + DynamoDB for Terraform state
+- static-site: S3 + CloudFront + ACM
+- visit-api: Lambda + API Gateway + DynamoDB
 
-Avantages de l'approche modulaire :
 
-- Réutilisabilité : Chaque module peut être réutilisé dans différents projets ou environnements
-- Séparation des responsabilités : Chaque module a une fonction précise et autonome
-Maintenance simplifiée : Les modifications sont isolées et n'affectent pas l'ensemble du système
--Collaboration facilitée : Plusieurs personnes peuvent travailler sur différents modules simultanément sans conflits
--Testabilité : Chaque module peut être testé indépendamment avant intégration
-
-Les différents modules communiquent entre eux via les outputs et variables:
+Each Terraform module communicates via variables and outputs, enabling a modular, reusable design:
 
 ```
-# Déclaration d'un output dans un module
+# Example: passing the ACM certificate ARN between modules
 output "acm_arn" {
   value = aws_acm_certificate.site_cert.arn
 }
 
-# Utilisation dans la configuration racine
 module "static_site" {
   source = "./modules/static-site"
   domain_root = var.domain_root
 }
 
-# Réutilisation de l'output dans d'autres modules ou outputs
-output "certificat_ssl" {
+output "ssl_certificate" {
   value = module.static_site.acm_arn
 }
 ```
 
-Cette architecture modulaire permet une gestion évolutive de l'infrastructure et une meilleure organisation du code Terraform, 
-tout en facilitant la collaboration et la maintenance à long terme.
+This modular approach improves maintenance, scalability, and teamwork readiness.
 
-## Architecture du projet
-
-
-![Architecture AWS](Schema/architecture.png)
-
-CloudFront délivre le site depuis **S3 privé via OAC** (pas d'accès public direct au bucket).
-L'infrastructure utilise stratégiquement deux régions AWS pour optimiser les performances et respecter les contraintes techniques.
-
-## 🔄 Flux des Requêtes
-
-![Flux des requêtes](Schema/flux_rqt.png)
-
-Parcours d'une requête : 
-Le contenu statique est servi via le CDN CloudFront depuis S3, tandis que les données dynamiques du compteur de visites transitent par une API serverless (Lambda + DynamoDB) avant de s'afficher sur la page. Cette architecture assure une performance globale grâce à une séparation claire entre la couche de présentation et le traitement des données.*
+## Architecture
 
 
-##  Workflow Terraform
+![AWS Architecture](Schema/architecture.png)
 
-### Étapes principales
+CloudFront securely delivers the website from a **private S3 bucket** using **OAC (Origin Access Control)**.
+The ACM certificate is hosted in us-east-1 to meet CloudFront’s regional requirement.
+
+## 🔄 Request Flow
+
+![Request Flow](Schema/flux_rqt.png)
+
+Static content is served through CloudFront’s CDN from S3,
+while dynamic data (the visit counter) passes through API Gateway → Lambda → DynamoDB,
+before being displayed on the frontend.
+This ensures a **clean separation** between presentation and data logic.
+
+
+##  Terraform Workflow
+
+### Principals steps
 
 ```bash
-terraform init           # Initialiser
-terraform validate       # Vérifier la syntaxe
-terraform fmt -recursive # Mise en forme
-terraform plan           # Prévisualiser les changements
-terraform apply          # Appliquer les changements
+terraform init           # Initialize
+terraform validate       # Validate syntax
+terraform fmt -recursive # Format code
+terraform plan           # Preview changes
+terraform apply          # Apply changes
 ```
 
 ### Naming convention
@@ -132,99 +126,90 @@ terraform apply          # Appliquer les changements
 ```
 <prefix>-<project>-<env>-<type>
 ```
-Exemple : `zenaba-portfolio-dev-tfstate`
+Example : `zenaba-portfolio-dev-tfstate`
 
-##  Gestion du state
+##  State Management
 
-- **S3** : stockage centralisé avec versioning + encryption AES256
-- **DynamoDB** : table de lock pour éviter les apply concurrents
-- **Avantages** : collaboration, rollback, sécurité
+Terraform uses a **remote backend** for safety and collaboration:
 
-## 🌐 Déploiement du site statique
+- **S3** stores the state file (versioned & AES256 encrypted)
 
-- **Bucket S3 privé** (aucun accès public)
-- **CloudFront + OAC** (Origin Access Control) → seul CloudFront accède au bucket
-- **Certificat ACM** en us-east-1 pour HTTPS
-- **Redirection DNS OVH** (CNAME → CloudFront)
+- **DynamoDB** manages state locks to prevent concurrent apply operations
+  
+✅ Benefits: consistency, rollback, and team collaboration.
 
-### Commandes utiles :
+## 🌐 Deployment Summary
+
+- **Private S3 bucket** (no public access)
+- **CloudFront + OAC** (secure S3 access)
+- **ACM certificate** (us-east-1) for HTTPS
+- **DNS (OVH)**: www → CloudFront, apex redirects to www
+
+### Useful Command to deploy your static site and refresh CloudFront’s cache :
 
 ```bash
+# Upload (sync) all local files in ./public to your S3 bucket.
+# - Adds/updates changed files
+# - --delete removes files in the bucket that no longer exist locally
 aws s3 sync ./public s3://$SITE_BUCKET --delete
+
+# Invalidate CloudFront cache for all paths so users get the latest files immediately.
+# (Without this, CloudFront might keep serving older cached versions.)
 aws cloudfront create-invalidation --distribution-id $CF_ID --paths "/*"
 ```
+Quick tips:
 
-##  Compteur de visites
+- After a sync, HTML might still be cached—this invalidation fixes that.
+- If only a few files changed, you can invalidate specific paths (e.g., "/index.html" "/app.js").
+- Make sure $SITE_BUCKET and $CF_ID are set (you can output them from Terraform).
 
-- **Lambda** (Python) → incrémente la valeur
-- **DynamoDB** → stocke le compteur
-- **API Gateway** → expose /visit
-- **Frontend** → fetch de l'endpoint → affichage en temps réel
+## Visit Counter Logic
 
-## Résultat ?
+- **Lambda** (Python) → increments visit count
+- **DynamoDB** → stores it persistently
+- **API Gateway** → exposes /visit endpoint
+- **Frontend** → fetches the API and displays the counter in real time
 
-Un site hébergé sur AWS accessible à ces adresses :  
+## 🌍 Live Website
+
+Accessible at:  
 - [http://zenabamogne.fr](http://zenabamogne.fr)  
 - [www.zenabamogne.fr](https://www.zenabamogne.fr)  
 - [https://www.zenabamogne.fr](https://www.zenabamogne.fr)
 - [zenabamogne.fr](http://zenabamogne.fr) 
 
-![Site déployé](Schema/site.png)
-
-## Problème rencontré & résolution (ACM/CloudFront)
-
-**Problématique.** L’ajout de l’alias `zenabamogne.fr` dans CloudFront échouait avec comme message d'erreur :
-> “The certificate that is attached to your distribution doesn't cover the alternate domain name (CNAME)…”
-
-**Cause racine.**
-- Le certificat ACM initial ne couvrait que `www.zenabamogne.fr`.
-- La distribution CloudFront n’avait que `www.zenabamogne.fr` en alias.
-- Rappel important : **CloudFront exige un certificat ACM en `us-east-1`** couvrant **tous** les noms ajoutés dans `aliases`.
-
-**Correctif mis en place.**
-1. Création d’un **nouveau certificat ACM** en `us-east-1` pour **`zenabamogne.fr` + `*.zenabamogne.fr`** (Terraform, provider alias `aws.use1`).
-2. Exposition des **CNAMEs de validation** via les outputs Terraform ➜ ajout des CNAMEs dans **OVH DNS** ➜ état **`ISSUED`**.
-3. Mise à jour de **CloudFront** :
-   - `aliases = ["zenabamogne.fr", "www.zenabamogne.fr"]`
-   - `viewer_certificate.acm_certificate_arn = <nouvel ARN ACM>`
-4. DNS :
-   - `www` ➜ **CNAME** vers la distrib CloudFront
-   - **apex** `zenabamogne.fr` ➜ **redirection 301 visible** OVH vers `https://www.zenabamogne.fr` (limitation CNAME sur l’apex).
+![Deployed website](Schema/site.png)
 
 
-## 💬 FAQ Technique & Retour d’expérience
+## 💬 FAQ - Technical insights
 
-### Pourquoi avoir d’abord tout fait via la console AWS ?
-Pour comprendre concrètement le rôle de chaque service.
-Configurer S3, CloudFront, ACM ou API Gateway à la main m’a permis de visualiser les liens entre eux avant d’automatiser.
-Terraform est ensuite venu structurer et fiabiliser tout ce que j’avais appris.
+### Why start with the AWS Console first?
+To understand how each service connects.
+Building it manually gave me a clear view before automating with Terraform.
 
-### Pourquoi utiliser Terraform plutôt que CloudFormation ?
-Terraform est multi-cloud : il permet de décrire la même infrastructure sur AWS, Azure, GCP ou d’autres services tiers avec un langage unique (HCL).
-Dans une démarche d’apprentissage, j’ai préféré utiliser un langage transversal pour renforcer ma compréhension des concepts.
+### Why Terraform instead of CloudFormation?
+Terraform is multi-cloud and uses HCL, it's a reusable language.
+It allowed me to focus on IaC.
 
-### Comment gérer la sécurité et la performance du site ?
-J'ai fait lr choix de servir le site via un bucket S3 privé via CloudFront (OAC) — aucune exposition publique directe.
-Le certificat TLS ACM est hébergé en us-east-1, comme requis par CloudFront.
-Les fichiers statiques sont mis en cache et compressés, et toutes les requêtes sont redirigées vers HTTPS.
-Résultat → Sécurité + performances : HTTPS, cache CDN, compression, latence réduite et chiffrement des données au repos et en transit.
+### How is security and performance handled?
+The website is served from a private S3 bucket via CloudFront (OAC).
+TLS (ACM) is managed in us-east-1, all traffic is HTTPS, and static assets are cached and compressed for low latency.
 
-### Quels ont été les principaux défis techniques ?
-- La validation ACM avec OVH (CNAMEs et propagation DNS)
-- La redirection HTTPS entre zenabamogne.fr et www.zenabamogne.fr
-- L’intégration du compteur de visites serverless (Lambda + API Gateway + DynamoDB)
+### What were the main challenges?
+- Validating the ACM certificate with OVH DNS (CNAME propagation)
+- Managing HTTPS redirection between zenabamogne.fr and www.zenabamogne.fr
+- Integrating the serverless visit counter (Lambda + API Gateway + DynamoDB)
 
-Ces points m’ont obligée à approfondir les notions de DNS, SSL et permissions IAM.
+### How is Terraform state managed?
+The state is stored in S3 (versioned + encrypted),
+and DynamoDB handles locking to prevent concurrent updates.
 
-### Comment est géré l'état Terraform et pourquoi cette méthode ?
-J’utilise un backend S3 + DynamoDB :
-S3 stocke le state de manière versionnée et sécurisée,
-DynamoDB gère le verrouillage concurrent (lock) pour éviter les conflits.
-Cela garantit la cohérence, la traçabilité et la collaboration sans risque de corruption du state.
+##  Next Steps ?
 
-##  Améliorations possibles
+- CI/CD automation (GitHub Actions + OIDC)
 
-- Automatisation CI/CD (GitHub Actions → Terraform plan/apply)
-- Multi-environnements (dev/staging/prod)
-- Monitoring et alertes (CloudWatch + SNS)
-- Sécurité avancée (WAF, Secrets Manager)
+- Multi-environment setup (dev/staging/prod)
+
+- Monitoring and alerts (CloudWatch + SNS)
+
+- Advanced security (WAF, Secrets Manager)
