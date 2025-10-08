@@ -8,10 +8,9 @@ infra/environments/*.tfvars
 
 infra/lambda/build.zip
 
-!.terraform.lock.hcl
-!infra/.terraform.lock.hcl
-
 .DS_Store
 
 .terraform/
 terraform.tfstate*
+
+.gitignore
