@@ -24,6 +24,5 @@ module "visit_api" {
   project     = var.project
   environment = var.environment
 
-  # Optionnel, pour garder EXACTEMENT "visit-counter"
   # table_name = "visit-counter"
 }
