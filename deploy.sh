@@ -7,7 +7,6 @@ AWS_REGION="${AWS_REGION:-eu-west-3}"
 DIST="${DIST:-E22UNXV0CNOBQ9}"
 BUCKET="${BUCKET:-portfolio-dev-www-zenabamogne-fr-site}"
 SRC_DIR="${SRC_DIR:-infra/public}"       # répertoire source local
-ORIGIN_SUBDIR="public"                   # car CloudFront a origin_path="/public"
 
 # -------- Helpers --------
 need() { command -v "$1" >/dev/null 2>&1 || { echo "❌ Missing: $1"; exit 1; }; }
@@ -25,7 +24,7 @@ invalidate() {
 case "${1:-all}" in
   html)
     echo "🔼 Upload index.html (no-cache)"
-    aws s3 cp "$SRC_DIR/index.html" "s3://$BUCKET/$ORIGIN_SUBDIR/index.html" \
+    aws s3 cp "$SRC_DIR/index.html" "s3://$BUCKET/index.html" \
       --cache-control "no-cache, no-store, must-revalidate" \
       --content-type "text/html; charset=utf-8" \
       --metadata-directive REPLACE \
@@ -36,7 +35,7 @@ case "${1:-all}" in
   pdf)
     FILE="CV_2025_MOGNE_ZENABA.pdf"
     echo "🔼 Upload $FILE (no-cache)"
-    aws s3 cp "$SRC_DIR/$FILE" "s3://$BUCKET/$ORIGIN_SUBDIR/$FILE" \
+    aws s3 cp "$SRC_DIR/$FILE" "s3://$BUCKET/$FILE" \
       --cache-control "no-cache, no-store, must-revalidate" \
       --content-type "application/pdf" \
       --metadata-directive REPLACE \
@@ -48,7 +47,7 @@ case "${1:-all}" in
     # Usage: ./deploy.sh file <local_name> <mime> [</cf/path>]
     FILE="$2"; TYPE="${3:-application/octet-stream}"; CF_PATH="${4:-/$2}"
     echo "🔼 Upload $FILE (custom)"
-    aws s3 cp "$SRC_DIR/$FILE" "s3://$BUCKET/$ORIGIN_SUBDIR/$FILE" \
+    aws s3 cp "$SRC_DIR/$FILE" "s3://$BUCKET/$FILE" \
       --cache-control "no-cache, no-store, must-revalidate" \
       --content-type "$TYPE" \
       --metadata-directive REPLACE \
@@ -59,7 +58,7 @@ case "${1:-all}" in
   all|*)
     echo "🔼 Sync assets (cache long) …"
     # Tout sauf index.html et PDF → cache long
-    aws s3 sync "$SRC_DIR/" "s3://$BUCKET/$ORIGIN_SUBDIR/" \
+    aws s3 sync "$SRC_DIR/" "s3://$BUCKET/" \
       --exclude ".DS_Store" \
       --exclude "index.html" \
       --exclude "*.pdf" \
@@ -68,7 +67,7 @@ case "${1:-all}" in
 
     # Pose le bon MIME + cache long pour quelques types courants
     # (facultatif : la détection MIME auto de S3 marche en général)
-    aws s3 cp "$SRC_DIR/style.css" "s3://$BUCKET/$ORIGIN_SUBDIR/style.css" \
+    aws s3 cp "$SRC_DIR/style.css" "s3://$BUCKET/style.css" \
       --cache-control "public, max-age=31536000, immutable" \
       --content-type "text/css; charset=utf-8" \
       --metadata-directive REPLACE \
@@ -76,7 +75,7 @@ case "${1:-all}" in
 
     # index.html (no-cache)
     echo "🔼 Upload index.html (no-cache) …"
-    aws s3 cp "$SRC_DIR/index.html" "s3://$BUCKET/$ORIGIN_SUBDIR/index.html" \
+    aws s3 cp "$SRC_DIR/index.html" "s3://$BUCKET/index.html" \
       --cache-control "no-cache, no-store, must-revalidate" \
       --content-type "text/html; charset=utf-8" \
       --metadata-directive REPLACE \
@@ -84,7 +83,7 @@ case "${1:-all}" in
 
     # robots.txt (cache court raisonnable)
     if [ -f "$SRC_DIR/robots.txt" ]; then
-      aws s3 cp "$SRC_DIR/robots.txt" "s3://$BUCKET/$ORIGIN_SUBDIR/robots.txt" \
+      aws s3 cp "$SRC_DIR/robots.txt" "s3://$BUCKET/robots.txt" \
         --cache-control "public, max-age=3600" \
         --content-type "text/plain; charset=utf-8" \
         --metadata-directive REPLACE \
