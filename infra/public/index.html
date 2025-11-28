@@ -27,6 +27,7 @@
     <!-- Canonical URL -->
     <link rel="canonical" href="https://www.zenabamogne.fr/">
     
+    <!-- Infrastructure: AWS S3 + CloudFront + Terraform 1.10+ (native S3 locking) -->
     <!-- Sitemap -->
     <link rel="sitemap" type="application/xml" href="/sitemap.xml">
     
@@ -573,7 +574,7 @@
 
                             <p><strong>Infrastructure as Code :</strong></p>
                             <div>Déploiement modulaire et reproductible (plans/apply Terraform)</div>
-                            <div>Backend Terraform : state et verrouillage stockés dans S3 et DynamoDB</div><br>
+                            <div>Backend Terraform : state et verrouillage natif S3 (Terraform 1.10+)</div><br>
                             
                             <p><strong>FinOps & Optimisation :</strong></p>
                             <div>Contrôle des coûts : AWS Budgets avec alertes automatiques</div>

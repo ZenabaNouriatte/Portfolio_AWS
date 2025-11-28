@@ -20,11 +20,13 @@ Understand security layers like OAC, encryption, IAM, and budget monitoring.
 
 In short, it turned theory into practice : a complete, functional, and evolving cloud project I fully understand end-to-end.
 
+**November 2025 Update**: Migrated to Terraform 1.10+ native S3 locking, eliminating the need for DynamoDB table for state locking. This reduces infrastructure complexity and costs while maintaining the same distributed locking functionality.
+
 Live: [www.zenabamogne.fr](www.zenabamogne.fr) 
 
 ## ⚙️ Tech stack
 
-- **Terraform** (S3 backend + DynamoDB lock)
+- **Terraform** (S3 backend + native S3 locking - Terraform 1.10+)
 - **AWS S3** (private static hosting)
 - **AWS CloudFront + ACM** (us-east-1) CDN & HTTPS
 - **AWS Lambda + API Gateway + DynamoDB** (serverless visit counter)
@@ -66,7 +68,7 @@ Live: [www.zenabamogne.fr](www.zenabamogne.fr)
 ```
 
 The infrastructure started as a simple monolith, then evolved into multiple Terraform modules for reusability and clarity:
-- bootstrap-backend: S3 + DynamoDB for Terraform state
+- bootstrap-backend: S3 with native locking (Terraform 1.10+) for Terraform state
 - static-site: S3 + CloudFront + ACM
 - visit-api: Lambda + API Gateway + DynamoDB
 
@@ -134,9 +136,9 @@ Terraform uses a **remote backend** for safety and collaboration:
 
 - **S3** stores the state file (versioned & AES256 encrypted)
 
-- **DynamoDB** manages state locks to prevent concurrent apply operations
+- **Native S3 locking** (Terraform 1.10+) prevents concurrent apply operations
   
-✅ Benefits: consistency, rollback, and team collaboration.
+✅ Benefits: consistency, rollback, team collaboration, and reduced infrastructure complexity.
 
 ## 🌐 Deployment Summary
 
@@ -202,14 +204,10 @@ TLS (ACM) is managed in us-east-1, all traffic is HTTPS, and static assets are c
 
 ### How is Terraform state managed?
 The state is stored in S3 (versioned + encrypted),
-and DynamoDB handles locking to prevent concurrent updates.
+and native S3 locking (Terraform 1.10+) handles locking to prevent concurrent updates.
 
 ##  Next Steps ?
 
 - CI/CD automation (GitHub Actions + OIDC)
 
-- Multi-environment setup (dev/staging/prod)
-
 - Monitoring and alerts (CloudWatch + SNS)
-
-- Advanced security (WAF, Secrets Manager)

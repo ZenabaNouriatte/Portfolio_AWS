@@ -2,9 +2,7 @@ output "state_bucket" {
   value = module.bootstrap_backend.state_bucket
 }
 
-output "lock_table" {
-  value = module.bootstrap_backend.lock_table
-}
+# Output lock_table supprimé - Plus besoin avec le verrouillage natif S3
 
 output "acm_arn" {
   value       = module.static_site.acm_arn

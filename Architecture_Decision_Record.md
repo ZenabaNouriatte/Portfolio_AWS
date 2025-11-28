@@ -8,7 +8,7 @@ Certificats CloudFront = us-east-1
 
 DNS = OVH (CNAME, pas de migration Route 53 pour l’instant)
 
-Backend = S3 privé (versionning + SSE-S3) + lock DynamoDB
+Backend = S3 privé (versionning + SSE-S3) + verrouillage natif S3 (Terraform 1.10+)
 
 Naming convention <prefix>-<project>-<env>-<type> = zenaba-portfolio-dev-tfstate
 
@@ -26,9 +26,11 @@ Terraform a besoin d’un fichier de state pour comparer l’infra réelle et la
 
 -> Ne pas le stocker en local mais dans un bucket S3 privé (versionné, chiffré SSE-S3)
 
--> Lock : DynamoDB (LockID par requete).
+-> Lock : Verrouillage natif S3 (Terraform 1.10+) - Plus besoin de DynamoDB 
 
-=  Collaboration multi-machines possible / Historique et rollback /Sécurité (chiffrement et accès contrôlé) / Coût minime mais non nul (S3+DynamoDB)
+=  Collaboration multi-machines possible / Historique et rollback /Sécurité (chiffrement et accès contrôlé) / Coût réduit (S3 uniquement)
+
+**Evolution novembre 2025** : Migration vers le verrouillage natif S3 introduit dans Terraform 1.10+. Cela élimine le besoin d'une table DynamoDB séparée pour gérer les verrous, réduisant les coûts et la complexité tout en conservant la même fonctionnalité de verrouillage distribué.
 
 **2 : Gestion DNS**
 

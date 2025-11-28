@@ -3,7 +3,5 @@ output "state_bucket" {
   description = "Nom du bucket de state"
 }
 
-output "lock_table" {
-  value       = aws_dynamodb_table.tf_lock.name
-  description = "Nom de la table DynamoDB de lock"
-}
+# Output lock_table supprimé car plus besoin de DynamoDB
+# Terraform 1.10+ utilise le verrouillage natif S3
