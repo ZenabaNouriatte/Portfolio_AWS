@@ -545,10 +545,54 @@
                     </div>
                     
                     <div class="section-content">
-                        <h3 class="section-subtitle">✅ Projets réalisés</h3>
-                      
-                        <div class="project-card"> 
-                          <div class="project-header-clickable" onclick="toggleProject(this)">
+                                                <h3 class="section-subtitle">✅ Projets réalisés</h3>
+
+                                                <div class="project-card">
+                                                    <div class="project-title">
+                                                        <a href="https://github.com/ZenabaNouriatte/ft_transcendence" target="_blank">
+                                                            <i class="fas fa-gamepad"></i> Ft_transcendance – Application web fullstack (Projet 42)
+                                                        </a>
+                                                        <span class="project-status status-completed">Terminé</span>
+                                                    </div>
+
+                                                    <div class="project-steps">
+                                                        <p>Déploiement d’une application de Pong multijoueur dans un environnement <strong>sécurisé, monitoré et industrialisé</strong>.</p>
+                                                        <div class="project-images" style="margin:0.75rem 0;">
+                                                            <h5 style="margin:0 0 0.5rem 0; font-size:0.95rem;">Aperçus du projet :</h5>
+                                                            <div style="display:flex;flex-wrap:wrap;gap:0.5rem;">
+                                                                <img src="images/ft_transcendence/game.png" alt="Ft_transcendence - game" style="width:160px;height:auto;border-radius:6px;box-shadow:0 2px 6px rgba(0,0,0,0.12);" />
+                                                                <img src="images/ft_transcendence/sign_in.png" alt="Ft_transcendence - sign in" style="width:160px;height:auto;border-radius:6px;box-shadow:0 2px 6px rgba(0,0,0,0.12);" />
+                                                            </div>
+                                                        </div>
+                                                        <div class="project-arch" style="margin-top:0.75rem;text-align:center;">
+                                                            <h5 style="margin:0 0 0.5rem 0; font-size:0.95rem;">Schéma d'architecture</h5>
+                                                            <img src="images/ft_transcendence/ARCHI.png" alt="Schéma d'architecture Ft_transcendence" style="max-width:880px; width:100%; height:auto; border-radius:8px; box-shadow:0 6px 20px rgba(0,0,0,0.12);" />
+                                                        </div>
+                                                        <p><strong>Architecture :</strong></p>
+                                                        <div>Multi-conteneurs (frontend, backend, proxy NGINX, base de données, monitoring, ELK) orchestrés avec Docker Compose</div>
+                                                        <div>Backend en microservices (auth, chat, jeu, tournois, statistiques, WebSocket temps réel)</div><br>
+
+                                                        <p><strong>Sécurité :</strong></p>
+                                                        <div>Reverse proxy NGINX avec certificats SSL</div>
+                                                        <div>Toutes les communications en <strong>HTTPS/WSS</strong> (API et WebSocket chiffrés)</div>
+                                                        <div>Isolation réseau via Docker Compose</div><br>
+
+                                                        <p><strong>CI :</strong></p>
+                                                        <div>Tests et builds automatisés sur GitHub</div><br>
+
+                                                        <p><strong>Observabilité :</strong></p>
+                                                        <div>Métriques avec Prometheus (latence p95, CPU/mémoire backend, connexions WS actives)</div>
+                                                        <div>Visualisation avec Grafana (dashboards JSON provisionnés)</div>
+                                                        <div>Logs centralisés via ELK (Elasticsearch, Logstash, Kibana)</div>
+                                                        <div>Alertes via Alertmanager</div><br>
+                                                    </div>
+
+                                                    <strong>Objectif :</strong> Développer une plateforme fullstack robuste et appliquer une démarche DevOps complète (CI, observabilité, automatisation).<br><br>
+                                                    <strong>Rôle dans l’équipe :</strong> prise en charge de l’infrastructure : containerisation, réseau, sécurité, monitoring, déploiement et automatisation.
+                                                </div>
+
+                                                <div class="project-card"> 
+                                                    <div class="project-header-clickable" onclick="toggleProject(this)">
                             <div class="project-title-row">
                               <div class="project-title-text">
                                 <i class="fab fa-aws"></i> Infrastructure AWS Serverless (IaC) – Portfolio en production avec Terraform (Projet perso)
@@ -673,39 +717,27 @@
                                 <strong>Objectif :</strong> Collecter, nettoyer et modéliser des données massives (scraping, feature engineering, Scikit-learn) afin d’identifier les variables influençant la perception du bonheur.
                             </div>
 
-                            <h3 class="section-subtitle">🔄 Projets en cours</h3>
+                                                <h3 class="section-subtitle">🔄 Projets en cours</h3>
+                                                <div class="project-card">
+                                                    <div class="project-header-clickable" onclick="toggleProject(this)">
+                                                        <div class="project-title-row">
+                                                            <div class="project-title-text">
+                                                                <i class="fas fa-network-wired"></i> BADASS — Simulation BGP & EVPN
+                                                            </div>
+                                                            <div class="project-header-right">
+                                                                <span class="project-status status-in-progress">En cours — Projet 42</span>
+                                                                <i class="fas fa-chevron-down project-toggle-icon"></i>
+                                                            </div>
+                                                        </div>
+                                                    </div>
 
-                            <div class="project-card" style="background-color: #fffaf0;">
-                              <div class="project-title">
-                                <i class="fas fa-gamepad"></i> Ft_transcendance – Application web fullstack (Projet 42)
-                                <span class="project-status status-in-progress">En cours</span>
-                              </div>
-                            
-                              <div class="project-steps">
-                                <p>Déploiement d’une application de Pong multijoueur dans un environnement <strong>sécurisé, monitoré et industrialisé</strong>.</p>
-                                <p><strong>Architecture :</strong></p>
-                                <div>Multi-conteneurs (frontend, backend, proxy NGINX, base de données, monitoring, ELK) orchestrés avec Docker Compose</div>
-                                <div>Backend en microservices (auth, chat, jeu, tournois, statistiques, WebSocket temps réel)</div><br>
-                            
-                                <p><strong>Sécurité :</strong></p>
-                                <div>Reverse proxy NGINX avec certificats SSL</div>
-                                <div>Toutes les communications en <strong>HTTPS/WSS</strong> (API et WebSocket chiffrés)</div>
-                                <div>Isolation réseau via Docker Compose</div><br>
-                            
-                                <p><strong>CI :</strong></p>
-                                <div>Tests et builds automatisés sur GitHub</div><br>
-                            
-                                <p><strong>Observabilité :</strong></p>
-                                <div>Métriques avec Prometheus (latence p95, CPU/mémoire backend, connexions WS actives)</div>
-                                <div>Visualisation avec Grafana (dashboards JSON provisionnés)</div>
-                                <div>Logs centralisés via ELK (Elasticsearch, Logstash, Kibana)</div>
-                                <div>Alertes via Alertmanager</div><br>
-                              </div>
-                            
-                              <strong>Objectif :</strong> Développer une plateforme fullstack robuste et appliquer une démarche DevOps complète (CI, observabilité, automatisation).<br><br>
-                              <strong>Rôle dans l’équipe :</strong> prise en charge de l’infrastructure : containerisation, réseau, sécurité, monitoring, déploiement et automatisation.
-                            </div>
-                            
+                                                    <div class="project-content-collapsible">
+                                                        <p><strong>Résumé :</strong> Simuler et configurer une topologie BGP/EVPN avec GNS3 et images Docker pour comprendre MP‑BGP/EVPN, le forwarding (ARP/VXLAN) et les interactions entre autonomous systems.</p>
+                                                        <p><strong>Objectif :</strong> déployer la topologie, configurer MP‑BGP et EVPN, valider la reachability et documenter les procédures de debug (tcpdump, arp, ip neigh, etc.).</p>
+                                                        <p><strong>Outils :</strong> GNS3, Docker, scripts d'automatisation réseau.</p>
+                                                    </div>
+                                                </div>
+
                             
 
                         <h3 class="section-subtitle">➡️​ Projets à venir</h3>
