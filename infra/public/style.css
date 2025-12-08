@@ -782,7 +782,75 @@ body {
     color: #8a5b00;
     font-weight:600;
 }
+/* ===== PRÉSENTATION SOBRE ===== */
 
+.presentation-block {
+    margin-bottom: 2rem;
+}
+
+.presentation-text {
+    line-height: 1.8;
+}
+
+.presentation-text p {
+    margin-bottom: 1.2rem;
+}
+
+.presentation-text strong {
+    color: var(--color-accent);
+    font-weight: 600;
+}
+
+.recent-news {
+    margin: 2rem 0 1.5rem 0;
+}
+
+.recent-news h4 {
+    font-size: 1rem;
+    color: var(--color-secondary);
+    margin-bottom: 1rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.achievements-line {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 1.5rem;
+    padding: 1.2rem 0;
+    border-top: 1px solid var(--color-card-border);
+    border-bottom: 1px solid var(--color-card-border);
+}
+
+.achievement-item {
+    min-width: 0;
+}
+
+.achievement-item strong {
+    display: block;
+    font-size: 0.95rem;
+    margin-bottom: 0.3rem;
+    color: var(--color-accent);
+}
+
+.achievement-item span {
+    font-size: 0.85rem;
+    color: var(--color-secondary);
+    line-height: 1.4;
+}
+
+.aws-captain-note {
+    margin-top: 1.5rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--color-card-border);
+    color: var(--color-text);
+    line-height: 1.7;
+}
+
+.aws-captain-note strong {
+    color: var(--color-accent);
+}
 
 
 
