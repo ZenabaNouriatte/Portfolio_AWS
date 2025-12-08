@@ -155,6 +155,58 @@ document.addEventListener('DOMContentLoaded', function() {
         // Vider le titre et ajouter le nouveau span
         titleElement.innerHTML = '';
         titleElement.appendChild(titleSpan);
+
+        // Afficher le type de projet (infra / dev / data) si fourni via data-type
+        const pType = (card.dataset && card.dataset.type) ? card.dataset.type.trim().toLowerCase() : null;
+        if (pType) {
+            const typeMap = {
+                'infra': { icon: 'fas fa-server', label: 'Infra' },
+                'dev': { icon: 'fas fa-code', label: 'Dev' },
+                'data': { icon: 'fas fa-chart-line', label: 'Data' }
+            };
+            const info = typeMap[pType] || { icon: 'fas fa-folder-open', label: pType };
+            const typeSpan = document.createElement('span');
+            typeSpan.className = 'project-type';
+            typeSpan.style.display = 'inline-flex';
+            typeSpan.style.alignItems = 'center';
+            typeSpan.style.gap = '0.4rem';
+            typeSpan.style.marginLeft = '0.5rem';
+            typeSpan.style.fontSize = '0.85rem';
+            typeSpan.style.padding = '0.15rem 0.5rem';
+            typeSpan.style.borderRadius = '8px';
+            typeSpan.style.background = 'rgba(0,0,0,0.03)';
+            typeSpan.style.color = 'var(--color-accent)';
+            typeSpan.innerHTML = `<i class="${info.icon}" style="width:14px;text-align:center;"></i>${info.label}`;
+            titleElement.appendChild(typeSpan);
+        }
+
+        // Afficher les principales technologies si fournies via data-techs (liste comma séparée)
+        const techsRaw = (card.dataset && card.dataset.techs) ? card.dataset.techs.trim() : null;
+        if (techsRaw) {
+            const techs = techsRaw.split(',').map(t => t.trim()).filter(Boolean);
+            if (techs.length) {
+                const techContainer = document.createElement('span');
+                techContainer.className = 'project-techs';
+                techContainer.style.display = 'inline-flex';
+                techContainer.style.flexWrap = 'wrap';
+                techContainer.style.gap = '0.4rem';
+                techContainer.style.marginLeft = '0.6rem';
+                techContainer.style.alignItems = 'center';
+                techs.slice(0,5).forEach(t => {
+                    const chip = document.createElement('span');
+                    chip.className = 'tech-chip';
+                    chip.textContent = t;
+                    chip.style.fontSize = '0.72rem';
+                    chip.style.padding = '0.12rem 0.45rem';
+                    chip.style.borderRadius = '999px';
+                    chip.style.background = 'rgba(74,106,154,0.08)';
+                    chip.style.color = 'var(--color-accent)';
+                    chip.style.fontWeight = '600';
+                    techContainer.appendChild(chip);
+                });
+                titleElement.appendChild(techContainer);
+            }
+        }
         
         // Ajouter le badge École 42 si nécessaire
         if (has42) {
