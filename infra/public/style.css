@@ -698,31 +698,6 @@ body {
     text-align: center;
   }
   
-  
-
-/* Projets */
-/*.project-title {
-    font-size: 1.2rem;
-    color: var(--color-accent);
-    font-weight: 700;
-    margin: 1.2rem 0 0.8rem;
-    display: flex;
-    align-items: center;
-    gap: 0.8rem;
-    font-family: var(--font-heading);
-}*/
-
-/*.project-title {
-    font-size: 1.3rem;
-    color: var(--color-accent);
-    font-weight: 700;
-    margin: 0 0 1rem 0;
-    display: flex;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 0.8rem;
-}*/
-
 .project-title {
     font-size: 1.3rem;
     color: var(--color-accent);
@@ -734,10 +709,6 @@ body {
     gap: 0.8rem;
 }
 
-/*.project-title a {
-    color: var(--color-secondary);
-    font-size: 0.85rem;
-}*/
 
 .project-title a {
     color: inherit;        /* garde la couleur du parent */
@@ -794,6 +765,23 @@ body {
     gap: 0.4rem; /* espacé réduit pour mobile */
     margin: 0.8rem 0;
   }
+
+  .status {
+    font-size: 0.8rem;
+    padding: 3px 8px;
+    border-radius: 8px;
+    background: #eee;
+}
+.status.valid {
+    background: #d4f6dd;
+    color: #2d7a38;
+    font-weight:600;
+}
+.status.progress {
+    background: #ffe8b3;
+    color: #8a5b00;
+    font-weight:600;
+}
 
   /* ============================================ */
   /* SECTION PORTFOLIO AVEC ACCORDÉON           */
