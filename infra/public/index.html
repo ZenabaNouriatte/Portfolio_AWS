@@ -34,7 +34,7 @@
     <!-- Stylesheets -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css?v=6">
+    <link rel="stylesheet" href="style.css?v=5">
 
 </head>
 <body>
@@ -152,7 +152,7 @@
                  <a href="https://www.credly.com/badges/b3c5fe72-9534-44f5-b301-fd585c045e3e/public_url" target="_blank" rel="noopener noreferrer" class="badge-link" title="Voir le badge Cloud Captain sur Credly">Voir le badge <i class="fas fa-external-link-alt" style="margin-left:0.4rem;font-size:0.9rem;"></i></a>
             </div>
             <div class="achievement-item">
-                <strong>Stage professionnel</strong>
+                <strong>MLOps Intern - Thalès</strong>
                 <span>Janv. à Juil. 2026</span>
             </div>
             <div class="achievement-item">
@@ -405,6 +405,65 @@
                       
                       <div class="experience-card">
                           <div class="experience-header">
+                              <h4>MLOps Engineer Intern</h4>
+                              <div class="company">Thales</div>
+                              <div class="period">Janvier - Juillet 2026</div>
+                          </div>
+
+                          <div class="experience-content">
+                              <p>Mise en place d'un <strong>job d'audit 100% IA</strong> intégrée aux pipelines GitLab, avec optimisation pour modèles de 120B paramètres.</p>
+                              <p>Conception et déploiement d'une <strong>infrastructure LLM auto-hébergée</strong> pour garantir la souveraineté des données lors des audits de code IA.</p>
+                              <div class="missions">
+                                  <h5>Mes missions incluaient :</h5>
+                                  <ul class="mission-list">
+                                      <li><strong>Architecture infrastructure LLM :</strong> conception d'une infrastructure privée pour assurer 100% de souveraineté des données lors de l'analyse du code</li>
+                                      <li><strong>Optimisation des modèles :</strong> adaptation d'un serveur d'inférence local pour exécuter des modèles à 120B paramètres via quantization GGUF</li>
+                                      <li><strong>Automatisation CI/CD :</strong> intégration d'un job GitLab dédiés pour valider chaque ligne de code via IA, offrant un retour immédiat</li>
+                                      <li><strong>Gestion des bottlenecks :</strong> résolution de contraintes critiques de VRAM et gestion de la fenêtre contextuelle pour traiter des diffs Git volumineux (20k+ tokens)</li>
+                                      <li><strong>Enjeu de conformité :</strong> assurance d'une couverture de code à 100% tout en préservant la confidentialité des assets sensibles</li>
+                                  </ul>
+                              </div>
+
+                              <div class="missions">
+                                  <h5>Succès :</h5>
+                                  <ul class="mission-list">
+                                      <li>Déploiement réussi d'une infrastructure multi-GPU optimisée pour grands modèles de langage</li>
+                                      <li>Automatisation complète de l'audit de code, éliminant les goulots d'étranglement manuels</li>
+                                      <li>Gestion efficace des ressources VRAM pour supporter des contextes de 20k+ tokens sans dégradation de performance</li>
+                                      <li>Adoption immédiate par les équipes de développement — feedback instantané en CI/CD</li>
+                                  </ul>
+                              </div>
+
+                              <div class="missions">
+                                  <h5>Résultats du projet :</h5>
+                                  <ul class="mission-list">
+                                      <li><strong>Modèle Human-in-the-Loop :</strong> Analyse complète du code soumis dans la MR par l'IA avant validation manuelle par un développeur, garantissant contrôle et conformité</li>
+                                      <li><strong>Temps de génération de l'audit :</strong> 20 à 150 secondes selon la complexité du diff</li>
+                                      <li><strong>Catégorisation intelligente :</strong> classification des modifications en 3 niveaux — <em>Validé</em> (conforme aux standards), <em>À améliorer</em> (optimisations possibles), <em>Avertissement</em> (problèmes de sécurité/performance), <em>Critique</em> (code à modifier obligatoirement)</li>
+                                      <li><strong>Audit intégré dans les Merge Requests :</strong> résultats affichés directement dans la page MR et en notification Windows</li>
+                                      <li><strong>Propositions de modification :</strong> suggestions détaillées et contextualisées pour corriger les anomalies détectées</li>
+                                  </ul>
+                              </div>
+
+                              <div class="skills-developed">
+                                  <h5>Compétences développées :</h5>
+                                  <div class="skill-tags">
+                                      <span class="skill-tag">MLOps & Infrastructure ML</span>
+                                      <span class="skill-tag">LLM & Quantization GGUF</span>
+                                      <span class="skill-tag">GitLab CI/CD</span>
+                                      <span class="skill-tag">CUDA & GPU Management</span>
+                                      <span class="skill-tag">Optimisation de performance</span>
+                                      <span class="skill-tag">Souveraineté des données</span>
+                                      <span class="skill-tag">Infra On-Premise</span>
+                                      <span class="skill-tag">Automatisation</span>
+                                      <span class="skill-tag">IA appliquée à la sécurité code</span>
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+
+                      <div class="experience-card">
+                          <div class="experience-header">
                               <h4>Chargée de mission sociale</h4>
                               <div class="company">Léonie Chatelain</div>
                               <div class="period">2013 - 2023</div>
@@ -497,6 +556,18 @@
                             <li>C / C++</li>
                             <li>Bash Scripting</li>
                             <li>Résolution de problèmes algorithmiques</li>
+                          </ul>
+                        </div>
+
+                        <div class="skills-category">
+                          <h4>🤖 IA & Machine Learning</h4>
+                          <ul class="skills-list">
+                            <li><strong>LLM & Inférence :</strong> déploiement et optimisation de modèles de langage (120B+ paramètres)</li>
+                            <li><strong>Quantization :</strong> GGUF, optimisation VRAM pour GPU</li>
+                            <li><strong>MLOps Infrastructure :</strong> pipelines d'inférence, gestion de ressources GPU (CUDA)</li>
+                            <li><strong>Intégration CI/CD :</strong> automatisation IA dans GitLab pipelines</li>
+                            <li><strong>Certification :</strong> AWS AI Practitioner (Décembre 2025)</li>
+                            <li>Fondamentaux de l'IA appliquée, cas d'usage pratiques</li>
                           </ul>
                         </div>
                          <div class="skills-category">
