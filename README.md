@@ -58,7 +58,7 @@ Live: [www.zenabamogne.fr](www.zenabamogne.fr)
 │   ├── outputs.tf
 │   ├── providers.tf
 │   ├── public/
-│   │   ├── CV_2025_MOGNE_ZENABA.pdf
+│   │   ├── CV_MOGNE_ZENABA.pdf
 │   │   ├── index.html
 │   │   └── style.css
 │   ├── terraform-backend.json

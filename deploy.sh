@@ -33,7 +33,7 @@ case "${1:-all}" in
     ;;
 
   pdf)
-    FILE="CV_2025_MOGNE_ZENABA.pdf"
+    FILE="CV_MOGNE_ZENABA.pdf"
     echo "🔼 Upload $FILE (no-cache)"
     aws s3 cp "$SRC_DIR/$FILE" "s3://$BUCKET/$FILE" \
       --cache-control "no-cache, no-store, must-revalidate" \
